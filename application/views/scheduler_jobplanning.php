@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Calendar</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="<?php echo base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+      <a href="<?php echo base_url(); ?>scheduler/index">
+      <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
+      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow mx-1">
+          <a class="nav-link dropdown-toggle" href="<?php echo base_url(); ?>assets/#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell fa-fw"></i>
+            <span class="badge badge-danger">9+</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+            <a class="dropdown-item" href="<?php echo base_url(); ?>assets/#">Action</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="<?php echo base_url(); ?>assets/#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="<?php echo base_url(); ?>scheduler/department_work_policy">Work Policy Settings</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>scheduler/scheduler_details">Profile Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/index">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Timetable</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/calendar">
+            <i class="fas fa-fw fa-calendar-alt"></i>
+            <span>Calender</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/jobplanning">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Job Planning</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/staff">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Staff</span></a>
+        </li>
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="<?php echo base_url(); ?>scheduler/jobplanning">Job Planning</a>
+            </li>
+            <li class="breadcrumb-item active">Overview</li>
+          </ol>
+          <div class="card mx-5 mt-5">
+        <div class="card-header">
+          <i class="fa fa-user">Clinician info</i>
+        </div>
+          <div class="card-body">
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">Name: Dennis Ngu Kee Hou <?php //echo $fetch_data->Name; ?>             
+                </div>
+                <div class="col-md-6">
+                  Scheduler ID: BI15110057 <?php //echo ->SchedulerID; ?>     
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  Email: dnkh903@gmail.com <?php //echo $schedulerID['Email'] ?>
+                </div>
+                <div class="col-md-6">
+                 Gender: Male <?php //echo $schedulerID['Gender'] ?>     
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  Department: Critical Care <?php //echo $schedulerID['Department'] ?>    
+                </div>
+                <div class="col-md-6">
+                 Phone Number: +60109630989 <?php //echo $schedulerID['Phone_Number'] ?> 
+                </div>
+              </div>
+            </div>
+             <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                 Hospital: KPJ <?php //echo $schedulerID['Hospital'] ?>     
+                </div>
+                <div class="col-md-6">
+                 Leave: No<?php //echo $schedulerID['Hospital'] ?>     
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  Preference for this week: Prefer morning shift on beginning of weekdays <?php //echo $schedulerID['Department'] ?>     
+                </div>
+              </div>
+            </div>
+
+            <input type="submit" id="next" name="next" class="btn btn-success" value="Next Person" style="float: right;" />
+            <input type="submit" id="update_duty_roster" name="update_duty_roster" class="btn btn-info" value="Update Duty Roster" style="float: right; margin-right: 10px" />
+        </div>
+      </div><br><br>
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold;">
+                  MEDICAL EMPLOYEE JOB SCHEDULING
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4" style="text-align: center; font-weight: bold;">
+                  18/3/2019-24/3/2019
+                </td>
+              </tr>
+              <tr style="text-align: center;">
+                <th>Day</th>
+                <th>Morning Shift AM (0700-1400)</th>
+                <th>Afternoon Shift PM (1400-2100)</th>
+                <th>Night Shift ND (2100-0700)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Monday</td>
+                <td>Dennis Ngu Kee Hou</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Tuesday</td>
+                <td>Dennis Ngu Kee Hou</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Wednesday</td>
+                <td></td>
+                <td>Dennis Ngu Kee Hou</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Thursday</td>
+                <td></td>
+                <td>Dennis Ngu Kee Hou</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Friday</td>
+                <td></td>
+                <td></td>
+                <td>Dennis Ngu Kee Hou</td>
+              </tr>
+              <tr>
+                <td>Saturday</td>
+                <td></td>
+                <td></td>
+                <td>Dennis Ngu Kee Hou</td>
+              </tr>
+              <tr>
+                <td>Sunday</td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <p id="time"></p>
+            <script>
+            var d = new Date();
+            document.getElementById("time").innerHTML = 'Updated at ' + d;
+            </script>
+
+            <input type="submit" id="Clear_Duty_Roster" name="Clear_Duty_Roster" class="btn btn-danger" value="Clear Duty Roster" style="float: right;" />
+            <input type="submit" id="Generate_Duty_Roster" name="Generate_Duty_Roster" class="btn btn-primary" value="Generate Duty Roster" style="float: right; margin-right: 10px" />
+            <br><br>
+          
+
+     
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Medical Employees Scheduling 2019</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="<?php echo base_url(); ?>scheduler/jobplanning">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="<?php echo base_url(); ?>login/index">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<?php echo base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
+
+  </body>
+
+</html>
