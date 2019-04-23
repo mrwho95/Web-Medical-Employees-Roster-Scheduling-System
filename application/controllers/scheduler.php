@@ -1,8 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
+
 class scheduler extends CI_Controller {
 
+  function __construct(){
+    parent::__construct();
+    if (!$this->session->userdata('entrance')) 
+    {
+      redirect('login/index');
+    }
+  }
+
+  public function logout(){
+    $this->session->sess_destroy();
+    redirect('login/index');
+  }
+
+  public function sessionexpired(){
+    $this->load->view('session_expired');
+  }
 
 		public function index()
 	{
@@ -18,11 +36,10 @@ class scheduler extends CI_Controller {
     if ($data ->num_rows() > 0) {
       foreach ($data -> result() as $row) {
         $output .= '<tr>
-                      <td>'.$row->ID.'</td>
                       <td>'.$row->Name.'</td>
-                      <td>'.$row->Role.'</td>
-                      <td>'.$row->L.'</td>
-                      <td>'.$row->PH.'</td>
+                      <td>'.$row->Position.'</td>
+                      <td>'.$row->L.'/20</td>
+                      <td>'.$row->PH.'/19</td>
                       <td>'.$row->MON.'</td>
                       <td>'.$row->TUE.'</td>
                       <td>'.$row->WED.'</td>
@@ -43,6 +60,8 @@ class scheduler extends CI_Controller {
   }
 
   public function generate_pdf(){
+  $firstdate = date("d/m/Y", strtotime("Next Monday"));
+  $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
 
     if (isset($_POST["generate_pdf"])) 
     {
@@ -65,10 +84,9 @@ class scheduler extends CI_Controller {
       $obj_pdf->AddPage();
       $content = '';
       $content .= '<h2 align ="center">MEDICAL EMPLOYEES ROSTER</h2>
-      <h3 align ="center">18/3/2019 - 24/3/2019</h3>
+      <h3 align ="center">'.$firstdate.' - '.$lastdate.'</h3>
        <table border = "1" cellspacing="0" cellpadding ="5">
               <tr>
-                <th width = "5%">No</th>
                 <th width = "14.5%">Name</th>
                 <th>Role</th>
                 <th width= "7%">L</th>
@@ -116,10 +134,31 @@ class scheduler extends CI_Controller {
 		$this->load->view('scheduler_calendar',$data);
 	}
 
-		public function jobplanning()
-	{
-		$this->load->view('scheduler_jobplanning');
-	}
+  public function getcalendarevents(){
+    $this->load->model("calendar_model");
+
+    $events = array(
+
+                array(
+                   'id' => 2,
+                  'title' => 'AM Dennis Ngu Kee Hou',
+                  'start' => '2019-4-15',
+                   'end' => '2019-4-17',
+                   'allDay' => 'false'
+                  ),
+                array(
+                   'id' => 1,
+                  'title' => 'AM Dennis Ngu Kee Hou',
+                  'start'=> '2019-4-17',
+                   'end' => '2019-4-30'
+                  ),
+
+              );
+
+    // $events = $this->calendar_model->get_all_events();
+    echo json_encode($events);
+  }
+
 
 		public function staff()
 	{
@@ -203,7 +242,8 @@ public function update_scheduler_form_validation()
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;  
+                $sub_array[] = $row->Name;
+                $sub_array[] = $row->ClinicianID;  
                 $sub_array[] = $row->Gender;
                 $sub_array[] = $row->Age;
                 $sub_array[] = $row->Phone_Number;

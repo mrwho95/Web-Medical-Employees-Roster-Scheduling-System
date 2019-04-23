@@ -43,11 +43,11 @@ class admin_model extends CI_Model
     var $table3 = "department";
     var $table4 = "hospital";
 
-    var $select_scheduler_column = array("id", "Name", "Gender", "Phone_Number","Email","Department","Hospital");  
-    var $order_scheduler_column = array(null, "Name", "Gender",  "Phone_Number","Email","Department","Hospital");  
+    var $select_scheduler_column = array("id", "SchedulerID", "Name", "Gender", "Phone_Number","Email","Department","Hospital");  
+    var $order_scheduler_column = array(null, "SchedulerID", "Name", "Gender",  "Phone_Number","Email","Department","Hospital");  
 
-    var $select_clinician_column = array("id", "Name", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
-    var $order_clinician_column = array(null, "Name", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
+    var $select_clinician_column = array("id", "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
+    var $order_clinician_column = array(null, "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
 
     var $select_department_column = array("id", "Name", "Unit", "Manager_Name");
     var $order_department_column = array(null, "Name", "Unit", "Manager_Name");
@@ -62,7 +62,8 @@ class admin_model extends CI_Model
            $this->db->from($this->table);  
            if(isset($_POST["search"]["value"]))  
            {  
-                $this->db->like("Name", $_POST["search"]["value"]);  
+                $this->db->like("Name", $_POST["search"]["value"]);
+                $this->db->or_like("SchedulerID", $_POST["search"]["value"]);   
                 $this->db->or_like("Gender", $_POST["search"]["value"]);
                 $this->db->or_like("Phone_Number", $_POST["search"]["value"]);
                 $this->db->or_like("Email", $_POST["search"]["value"]);
@@ -75,7 +76,7 @@ class admin_model extends CI_Model
            }  
            else  
            {  
-                $this->db->order_by('id', 'DESC');  
+                $this->db->order_by('id', 'ASC');  
            }        }  
 
      function make_scheduler_datatables()
@@ -127,7 +128,7 @@ class admin_model extends CI_Model
            }  
            else  
            {  
-                $this->db->order_by('id', 'DESC');  
+                $this->db->order_by('id', 'ASC');  
            }        }  
 
      function make_clinician_datatables()

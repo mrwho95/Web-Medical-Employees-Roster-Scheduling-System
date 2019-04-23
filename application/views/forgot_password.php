@@ -20,12 +20,16 @@
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
 
+    <link href="<?php echo base_url();?>assets/css/loginpage.css" rel="stylesheet">
+
   </head>
 
-  <body class="bg-dark">
-
+  <body>
+    <div class="split left" style="width: 100%;">
+        <h1 style="top: 50px;">The Scheduler</h1>
+    </div>
     <div class="container">
-      <div class="card card-login mx-auto mt-5">
+      <div class="card card-login mx-auto" style="margin-top: 15%;">
         <div class="card-header">Scheduler Reset Password</div>
         <div class="card-body">
           <div class="text-center mb-4">

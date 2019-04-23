@@ -5,6 +5,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class admin extends CI_Controller
 {
+
+  function __construct(){
+    parent::__construct();
+    if (!$this->session->userdata('entrance')) 
+    {
+      redirect('login/index');
+    }
+  }
+
+  public function logout(){
+    $this->session->sess_destroy();
+    redirect('login/index');
+  }
+
+
+  public function sessionexpired(){
+
+    $this->load->view('session_expired');
+  }
+
 	public function index()
 	{
 		$this->load->view('admin_index');
@@ -93,7 +113,8 @@ class admin extends CI_Controller
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;  
+                $sub_array[] = $row->Name;
+                $sub_array[] = $row->SchedulerID;  
                 $sub_array[] = $row->Gender;
                 $sub_array[] = $row->Phone_Number;
                 $sub_array[] = $row->Email; 
@@ -122,7 +143,8 @@ class admin extends CI_Controller
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;  
+                $sub_array[] = $row->Name;
+                $sub_array[] = $row->ClinicianID;
                 $sub_array[] = $row->Gender;
                 $sub_array[] = $row->Age;
                 $sub_array[] = $row->Phone_Number;

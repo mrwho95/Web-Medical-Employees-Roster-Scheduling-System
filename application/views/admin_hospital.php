@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="900;url= sessionexpired" />
 
-    <title>Administrator</title>
+    <title>Hospital</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
@@ -33,7 +34,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <a href="<?php echo base_url(); ?>admin/index">
       <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
-      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>admin/index">Admin-Medical Employees Scheduling</a>
+      <a class="navbar-brand mr-1" style ="margin-left: 10px;" href="<?php echo base_url(); ?>admin/index">Admin-Medical Employees Scheduling</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -192,7 +193,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>login/index">Logout</a>
+            <a class="btn btn-primary" href="<?php echo base_url(); ?>admin/logout">Logout</a>
           </div>
         </div>
       </div>
@@ -219,11 +220,12 @@
               <br />  
             </div>  
             <div class="modal-footer">  
-              <input type="submit" id="action" name="action" class="btn btn-success" value="Add" />
-              <input type="hidden" name="action" class="btn btn-success" value="Add" />
-              <input type="submit" id="action" name="action" class="btn btn-success" value="Update" />
-              <!-- <input type="hidden" name="action" class="btn btn-success" value="Update" /> -->
               <input type="hidden" name="user_id" id="user_id">
+              <input type="submit" id="action" name="action" class="btn btn-success" value="Add" />
+              <!-- <input type="hidden" name="action" class="btn btn-success" value="Add" /> -->
+              <!-- <input type="submit" id="action" name="action" class="btn btn-success" value="Update" />
+              <input type="hidden" name="action" class="btn btn-success" value="Update" /> -->
+              
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
             </div>  
           </div>  

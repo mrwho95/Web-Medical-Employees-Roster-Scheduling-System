@@ -1,3 +1,8 @@
+<?php 
+  $firstdate = date("d/m/Y", strtotime("Next Monday"));
+  $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +13,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="900;url= sessionexpired" />
 
-    <title>Calendar</title>
+    <title>Job Planning</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+
 
     <!-- Bootstrap core CSS-->
     <link href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +39,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <a href="<?php echo base_url(); ?>scheduler/index">
       <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
-      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
+      <a class="navbar-brand mr-1" style ="margin-left: 10px;" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -91,7 +100,7 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/jobplanning">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduling/jobplanning">
             <i class="fas fa-fw fa-table"></i>
             <span>Job Planning</span></a>
         </li>
@@ -112,138 +121,262 @@
             </li>
             <li class="breadcrumb-item active">Overview</li>
           </ol>
-          <div class="card mx-5 mt-5">
-        <div class="card-header">
-          <i class="fa fa-user">Clinician info</i>
-        </div>
+
+          <?php if($error = $this->session->flashdata('success_msg_next_person')): ?>
+              <div class="alert alert-success alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
+            <?php if($error = $this->session->flashdata('success_msg_update_roster')): ?>
+              <div class="alert alert-info alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
+             <?php if($error = $this->session->flashdata('success_msg_delete_last_row')): ?>
+              <div class="alert alert-warning alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
+          <!-- <div class="card mx-5">
+            <div class="card-header">
+              <i class="fa fa-user">Clinician info</i>
+            </div>
           <div class="card-body">
             <div class="form-group">
               <div class="form-row">
-                <div class="col-md-6">Name: Dennis Ngu Kee Hou <?php //echo $fetch_data->Name; ?>             
+                <div class="col-md-6">Name: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Name;
+                      } 
+                  ?>               
                 </div>
                 <div class="col-md-6">
-                  Scheduler ID: BI15110057 <?php //echo ->SchedulerID; ?>     
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                  Email: dnkh903@gmail.com <?php //echo $schedulerID['Email'] ?>
-                </div>
-                <div class="col-md-6">
-                 Gender: Male <?php //echo $schedulerID['Gender'] ?>     
+                  Clinician ID: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->ClinicianID;
+                      } 
+                  ?>        
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">
-                  Department: Critical Care <?php //echo $schedulerID['Department'] ?>    
+                  Email: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Email;
+                      } 
+                  ?>   
                 </div>
                 <div class="col-md-6">
-                 Phone Number: +60109630989 <?php //echo $schedulerID['Phone_Number'] ?> 
+                 Gender: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Gender;
+                      } 
+                  ?>       
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  Department: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Department;
+                      } 
+                  ?>       
+                </div>
+                <div class="col-md-6">
+                 Phone Number: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Phone_Number;
+                      } 
+                  ?>    
                 </div>
               </div>
             </div>
              <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">
-                 Hospital: KPJ <?php //echo $schedulerID['Hospital'] ?>     
+                 Hospital: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Hospital;
+                      } 
+                  ?>        
                 </div>
                 <div class="col-md-6">
-                 Leave: No<?php //echo $schedulerID['Hospital'] ?>     
+                 Leave: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Medical_Leave;
+                      } 
+                  ?>        
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">
-                  Preference for this week: Prefer morning shift on beginning of weekdays <?php //echo $schedulerID['Department'] ?>     
+                  Shift Preference for this week: <?php foreach($fetch_clinician_data->result() as $row){
+                    echo $row->Shift_Preference;
+                      } 
+                  ?>   
                 </div>
               </div>
             </div>
-
-            <input type="submit" id="next" name="next" class="btn btn-success" value="Next Person" style="float: right;" />
-            <input type="submit" id="update_duty_roster" name="update_duty_roster" class="btn btn-info" value="Update Duty Roster" style="float: right; margin-right: 10px" />
+            <form method="post" action="<?php echo base_url()?>scheduling/next_person">
+              <input type="submit" id="next" name="next" class="btn btn-success" value="Next Person" style="float: right;" />
+            </form>
+            <form method="post" action="<?php echo base_url()?>scheduling/update_duty_table">
+              <input type="submit" id="update_duty_roster" name="update_duty_roster" class="btn btn-info" value="Update Duty Roster" style="float: right; margin-right: 10px" />
+            </form>
+            
         </div>
-      </div><br><br>
-          <table class="table table-bordered table-striped table-hover">
+      </div><br><br> -->
+
+        <table class="table table-bordered table-striped table-hover" style="width: 90%; margin: auto;">
+            <?php if($error = $this->session->flashdata('success_msg_generate_roster')): ?>
+              <div class="alert alert-info alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
+            <?php if($error = $this->session->flashdata('success_msg_clear_content')): ?>
+              <div class="alert alert-danger alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
             <thead>
               <tr>
-                <td colspan="4" style="text-align: center; font-weight: bold;">
-                  MEDICAL EMPLOYEE JOB SCHEDULING
+                <td colspan="9" style="text-align: center; font-weight: bold;">
+                  MEDICAL EMPLOYEE JOB SCHEDULING (DUTY ROSTER)
                 </td>
               </tr>
               <tr>
-                <td colspan="4" style="text-align: center; font-weight: bold;">
-                  18/3/2019-24/3/2019
+                <td colspan="9" style="text-align: center; font-weight: bold;">
+                  <?php echo $firstdate." - ".$lastdate; ?>
                 </td>
               </tr>
               <tr style="text-align: center;">
-                <th>Day</th>
-                <th>Morning Shift AM (0700-1400)</th>
-                <th>Afternoon Shift PM (1400-2100)</th>
-                <th>Night Shift ND (2100-0700)</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>MON</th>
+                <th>TUE</th>
+                <th>WED</th>
+                <th>THU</th>
+                <th>FRI</th>
+                <th>SAT</th>
+                <th>SUN</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Monday</td>
-                <td>Dennis Ngu Kee Hou</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Tuesday</td>
-                <td>Dennis Ngu Kee Hou</td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Wednesday</td>
-                <td></td>
-                <td>Dennis Ngu Kee Hou</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Thursday</td>
-                <td></td>
-                <td>Dennis Ngu Kee Hou</td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>Friday</td>
-                <td></td>
-                <td></td>
-                <td>Dennis Ngu Kee Hou</td>
-              </tr>
-              <tr>
-                <td>Saturday</td>
-                <td></td>
-                <td></td>
-                <td>Dennis Ngu Kee Hou</td>
-              </tr>
-              <tr>
-                <td>Sunday</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+            <tbody style="text-align: center;">
+              <?php 
+                if ($fetch_clinician_data->num_rows() > 0 ) {
+                  foreach ($fetch_clinician_data->result() as $row) {
+                    ?>
+                    <tr>
+<!--                       <td><?php echo $row->ID; ?></td> -->
+                      <td><?php echo $row->Name; ?></td>
+                      <td><?php echo $row->Position; ?></td>
+                      <td><?php echo $row->MON; ?></td>
+                      <td><?php echo $row->TUE; ?></td>
+                      <td><?php echo $row->WED; ?></td>
+                      <td><?php echo $row->THU; ?></td>
+                      <td><?php echo $row->FRI; ?></td>
+                      <td><?php echo $row->SAT; ?></td>
+                      <td><?php echo $row->SUN; ?></td>
+                    </tr>
+                    <?php 
+                  }
+                }else{
+                  ?>
+                  <tr>
+                    <td colspan="9" style="text-align: center;">No Data Found</td>
+                  </tr>
+                  <?php
+                }
+              ?>
             </tbody>
-          </table>
-          <p id="time"></p>
-            <script>
-            var d = new Date();
-            document.getElementById("time").innerHTML = 'Updated at ' + d;
-            </script>
-
-            <input type="submit" id="Clear_Duty_Roster" name="Clear_Duty_Roster" class="btn btn-danger" value="Clear Duty Roster" style="float: right;" />
-            <input type="submit" id="Generate_Duty_Roster" name="Generate_Duty_Roster" class="btn btn-primary" value="Generate Duty Roster" style="float: right; margin-right: 10px" />
-            <br><br>
+          </table><br>
           
-
-     
+          <div style="max-width: 95%;">
+            <form method="post" action="<?php echo base_url()?>scheduling/clear_duty_roster">
+            <input type="submit" id="Clear_Duty_Roster" name="Clear_Duty_Roster" class="btn btn-danger" value="Clear Duty Roster" style="float: right;" />
+            </form>
+            <form method="post" action="<?php echo base_url()?>scheduling/redo">
+              <input type="submit" id="Redo" name="Redo" class="btn btn-warning" value="Redo" style="float: right; margin-right: 10px;" />
+            </form>
+            <form method="post" action="<?php echo base_url()?>scheduling/generate_duty_roster">
+             <input type="submit" id="Generate_Duty_Roster" name="Generate_Duty_Roster" class="btn btn-primary" value="Generate Duty Roster" style="float: right; margin-right: 10px;" />
+            </form>
+          </div>
+          
+            <br><br><br>
+       <!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-user"></i>
+              Clinician Table</div>
+              <div class="card-body">
+                <!-- <form method="post" action="<?php echo base_url();?>scheduling/update_duty_table">
+            <input type="submit" name="update_table" id="update_table" value="Update Duty Table" action="update_dt" class="btn btn-info btn-block" style="width: auto;"><br> -->
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover" id="clinician_table" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                      <th>Name</th>
+                      <th>Clinician ID</th>
+<!--                       <th>Gender</th>
+                      <th>Age</th> -->
+                      <th>Phone Number</th>
+                      <!-- <th>Address</th> -->
+                      <th>Email</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Hospital</th>
+                      <th>Update Duty Roster</th>
+<!--                       <th>Delete</th> -->
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Clinician ID</th>
+<!--                       <th>Gender</th>
+                      <th>Age</th> -->
+                      <th>Phone Number</th>
+                      <!-- <th>Address</th> -->
+                      <th>Email</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Hospital</th>
+                      <th>Update Duty Roster</th>
+<!--                       <th>Delete</th> -->
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>  
+             </form>
+            </div>
+            <div class="card-footer small text-muted">
+              <p id="time2"></p>
+                <script>
+                var d = new Date();
+                document.getElementById("time2").innerHTML = 'Updated at ' + d;
+                </script>
+            </div>
+          </div>
+        </div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
@@ -262,7 +395,7 @@
     <!-- /#wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="<?php echo base_url(); ?>scheduler/jobplanning">
+    <a class="scroll-to-top rounded" href="<?php echo base_url(); ?>scheduling/jobplanning">
       <i class="fas fa-angle-up"></i>
     </a>
 
@@ -279,7 +412,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>login/index">Logout</a>
+            <a class="btn btn-primary" href="<?php echo base_url(); ?>scheduler/logout">Logout</a>
           </div>
         </div>
       </div>
@@ -293,8 +426,6 @@
     <script src="<?php echo base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script>
@@ -302,6 +433,54 @@
     <!-- Demo scripts for this page-->
     <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
 
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
   </body>
+
+<script>  
+ $(document).ready(function(){
+      var dataTable = $('#clinician_table').DataTable({  
+           "processing":true,  
+           "serverSide":true,  
+           "order":[],  
+           "ajax":{  
+                url:"<?php echo base_url().'scheduling/fetch_clinician_data'; ?>",  
+                type:"POST"  
+           },  
+           "columnDefs":[  
+                {  
+                     "targets":[0, 3, 4],  
+                     "orderable":true,  
+                },  
+           ],  
+      });
+
+      //edit clinician
+    $(document).on('click', '.update', function(){  
+           var user_id = $(this).attr("ID");
+
+           $.ajax({  
+                url:"<?php echo base_url(); ?>scheduling/update_duty_table",  
+                method:"POST",  
+                data:{user_id:user_id},  
+                dataType:"json"  
+                // success:function()  
+                //      {  
+                //           // alert(data);  
+                //           dataTable.ajax.reload();  
+                //      }  
+           })
+          if(!alert('Duty Roster Updated Successful!'))
+            {window.location.reload();}
+      });
+
+
+    });
+    </script>
 
 </html>

@@ -15,63 +15,50 @@
     <link href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="<?php echo base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="<?php echo base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
 
     <!-- Page level plugin CSS-->
-    <link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+   <!--  <link href="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
 
+    <link href="<?php echo base_url();?>assets/css/loginpage.css" rel="stylesheet">
+
   </head>
 
-  <body id="page-top">
+  <body>
+    <div class="container1">
+      <div class="split left">
+        <h1>The Scheduler</h1>
+        <button onclick="document.getElementById('schedulerlogin').style.display='block'" class="btn btn-danger" style="width: 300px;">Medical Scheduler Login
+        </button>
+      </div>
+      <div class="split right">
+        <h1>The Administrator</h1>
+        <button onclick="document.getElementById('adminlogin').style.display='block'" class="btn btn-success" style="width: 300px;">Medical Administrator Login
+        </button>
+      </div>
+      <!-- <footer style="bottom: 0; text-align: center; position: fixed; width: 100%; left: 0; background-color: #c9cfd8; height: 50px; padding: auto;">
+        <p>
+          Copyright © Medical Employees Scheduling 2019
+        </p>
+      </footer> -->
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-      <a href="<?php echo base_url(); ?>login/index">
-      <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
-      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>login/index">Medical Employees Scheduling</a>
-    </nav>
-
-    <div id="wrapper">
-      <ul class="sidebar navbar-nav">
-    </ul>
-      <div id="content-wrapper">
-        <div class="container-fluid container">
-           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="<?php echo base_url(); ?>scheduler/login">Login Account</a>
-            </li>
-          </ol>
-          <div class="row">
-            <div class="col-xl-4 col-sm-6">
-              <img src="<?php echo base_url(); ?>assets/photo/admin.png" width="80%" height="80%">
-              <button onclick="document.getElementById('adminlogin').style.display='block'" class="btn btn-primary" style="width:auto; margin-left: 18%;">Administrator Login
-              </button>
-            </div>
-            <div class="col-xl-4 col-sm-6">
-              <img src="<?php echo base_url(); ?>assets/photo/admin.png" width="80%" height="80%">
-              <button onclick="document.getElementById('schedulerlogin').style.display='block'" class="btn btn-primary" style="width:auto; margin-left: 22%;">Scheduler Login
-              </button>
-
-            </div>
-
-       <footer class="sticky-footer" style="margin: auto; position: fixed;">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Medical Employees Scheduling 2019</span>
-            </div>
-          </div>
-        </footer>
-
+        
         <!--Admin Login form 1-->
-            <div id="adminlogin" class="card card-login mx-auto mt-5" style="display: none; z-index: 1; position: fixed; left: 40%; top: 13%; width: 100%;">
-              <div class="card-header">Administator Login
+            <div id="adminlogin" class="card card-login mx-auto mt-5" style="display: none; z-index: 1; position: fixed; left: 35%; width: 100%;">
+              <div class="card-header">Medical Administator Login
                 <span onclick="document.getElementById('adminlogin').style.display='none'" class="close" title="Close Modal">&times;</span>
               </div>
               <div class="card-body">
                 <form method="post" action="<?php echo base_url()?>login/admin_form_validation">
+                  <div class="form-group">
+                    <div class="form-label-group" ">
+                      <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="100px" height="100px" style="margin-left: 125px;"><br>
+                      <p style="text-align: center; font-weight: bold;">Medical Employees Scheduling</p>
+                    </div>
+                  </div>
                   <div class="form-group">
                     <div class="form-label-group">
                       <input type="text" id="adminID" class="form-control" name="adminID" placeholder="Admin ID:" >
@@ -88,12 +75,10 @@
                   </div>
                   <div class="form-group">
                     <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="remember-me">Remember Password
-                      </label>
+                        <input type="checkbox" name="remember-me">Remember Me
                     </div>
                   </div>
-                  <div class="g-recaptcha" data-sitekey="6LeGaJcUAAAAAHp9kPQXTgK4AmJfd3RKERsLIShY">
+                  <div class="g-recaptcha" style="margin-left: 30px;" data-sitekey="6LeGaJcUAAAAAHp9kPQXTgK4AmJfd3RKERsLIShY">
                   </div><br>
                   <input class="btn btn-primary btn-block" name="insert" value="Login" type="submit">
                 </form>
@@ -106,12 +91,18 @@
           <!-- /. Admin Login form 1 -->
 
           <!--Scheduler Login form -->
-            <div id="schedulerlogin" class="card card-login mx-auto mt-5" style="display: none; z-index: 1; position: fixed; left: 40%; top: 13%; width: 100%;">
-              <div class="card-header">Scheduler Login
+            <div id="schedulerlogin" class="card card-login mx-auto mt-5" style="display: none; z-index: 1; position: fixed; left: 35%; width: 100%;">
+              <div class="card-header">Medical Scheduler Login
                 <span onclick="document.getElementById('schedulerlogin').style.display='none'" class="close" title="Close Modal">&times;</span>
               </div>
               <div class="card-body">
                 <form method="post" action="<?php echo base_url(); ?>login/scheduler_form_validation">
+                  <div class="form-group">
+                    <div class="form-label-group" ">
+                      <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="100px" height="100px" style="margin-left: 125px;"><br>
+                      <p style="text-align: center; font-weight: bold;">Medical Employees Scheduling</p>
+                    </div>
+                  </div>
                   <div class="form-group">
                     <div class="form-label-group">
                       <input type="text" id="schedulerID" name="schedulerID" class="form-control" placeholder="Scheduler ID:" >
@@ -128,14 +119,12 @@
                   </div>
                   <div class="form-group">
                     <div class="checkbox">
-                      <label>
-                        <input type="checkbox" value="remember-me">Remember Password
-                      </label>
+                       <input type="checkbox" name="remember-me">Remember Me
                     </div>
                   </div>
-                  <div class="g-recaptcha" data-sitekey="6LeGaJcUAAAAAHp9kPQXTgK4AmJfd3RKERsLIShY">
+                  <div class="g-recaptcha" style="margin-left: 30px;" data-sitekey="6LeGaJcUAAAAAHp9kPQXTgK4AmJfd3RKERsLIShY">
                   </div><br>
-                  <input class="btn btn-primary btn-block" name="insert" value="Login" type="submit">
+                  <input class="btn btn-primary btn-block" name="insert" id="insert" value="Login" type="submit">
                   <?php echo $this->session->flashdata("error");?>
                 </form>
                 <div class="text-center">
@@ -145,45 +134,51 @@
               </div>
             </div>
           <!-- /.Scheduler Login form 2 -->
-       <!-- Sticky Footer -->
-
-        <!-- /.container-fluid -->
-      </div>
-      <!-- /.content-wrapper -->
-
-    </div>
-
- </div>
-
-    <!-- /#wrapper -->
-</div>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="<?php echo base_url(); ?>assets/#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-
-
+    
+    
     <!-- Bootstrap core JavaScript-->
-    <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="<?php echo base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/jquery-easing/jquery.easing.min.js"></script> -->
 
     <!-- Page level plugin JavaScript-->
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.js"></script> -->
 
     <!-- Custom scripts for all pages-->
-    <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script> -->
 
     <!-- Demo scripts for this page-->
-    <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
-
+    <!-- <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
+ -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
   </body>
+
+  <script>
+      const left = document.querySelector(".left");
+      const right = document.querySelector(".right");
+      const container1 = document.querySelector(".container1");
+
+      left.addEventListener("mouseenter", () => {
+        container1.classList.add("hover-left");
+      });
+
+      left.addEventListener("mouseleave", () => {
+        container1.classList.remove("hover-left");
+      });
+
+      right.addEventListener("mouseenter", () => {
+        container1.classList.add("hover-right");
+      });
+
+      right.addEventListener("mouseleave", () => {
+        container1.classList.remove("hover-right");
+      });
+
+    </script>
 
 </html>

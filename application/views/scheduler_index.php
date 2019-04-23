@@ -1,3 +1,8 @@
+<?php 
+  $firstdate = date("d/m/Y", strtotime("Next Monday"));
+  $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,8 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="900;url= sessionexpired" />
 
-    <title>Scheduler</title>
+    <title>Timetable</title>
 
     <!-- Bootstrap core CSS-->
     <link href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +36,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <a href="<?php echo base_url(); ?>scheduler/index">
       <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
-      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
+      <a class="navbar-brand mr-1" style ="margin-left: 10px;" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -94,7 +100,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/jobplanning">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduling/jobplanning">
             <i class="fas fa-fw fa-table"></i>
             <span>Job Planning</span></a>
         </li>
@@ -118,18 +124,18 @@
           </ol>
           
           <table class="table table-bordered table-striped table-hover" style="width: 90%; margin: auto;">
-            <form method="post" action="<?php echo base_url()?>scheduler/generate_pdf">
-              <thead style="text-align: center; font-weight: bold;">
+             <thead style="text-align: center; font-weight: bold;">
+              <form method="post" action="<?php echo base_url()?>scheduler/generate_pdf">
               <input type="submit" name="generate_pdf" id="generate_pdf" style="width: auto; margin-right:55px; float: right;"class="btn btn-primary btn-block" value="Download Duty Roster PDF"><br><br>
             </form>
               <tr>
                 <td colspan="12">MEDICAL EMPLOYEES ROSTER</td>
               </tr>
               <tr>
-                <td colspan="12">18/3/2019 - 24/3/2019</td>
+                <td colspan="12"><?php echo $firstdate." - ".$lastdate; ?></td>
               </tr>
               <tr>
-                <th>No</th>
+<!--                 <th>No</th> -->
                 <th>Name</th>
                 <th>Role</th>
                 <th>L</th>
@@ -163,11 +169,11 @@
                   foreach ($fetch_data->result() as $row) {
                     ?>
                     <tr>
-                      <td><?php echo $row->ID; ?></td>
+<!--                       <td><?php echo $row->ID; ?></td> -->
                       <td><?php echo $row->Name; ?></td>
-                      <td><?php echo $row->Role; ?></td>
-                      <td><?php echo $row->L; ?></td>
-                      <td><?php echo $row->PH; ?></td>
+                      <td><?php echo $row->Position; ?></td>
+                      <td><?php echo "$row->L / 20" ?></td>
+                      <td><?php echo "$row->PH / 19"; ?></td>
                       <td><?php echo $row->MON; ?></td>
                       <td><?php echo $row->TUE; ?></td>
                       <td><?php echo $row->WED; ?></td>
@@ -181,7 +187,7 @@
                 }else{
                   ?>
                   <tr>
-                    <td colspan="3">No Data Found</td>
+                    <td colspan="11">No Data Found</td>
                   </tr>
                   <?php
                 }
@@ -231,7 +237,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>login/index">Logout</a>
+            <a class="btn btn-primary" href="<?php echo base_url(); ?>scheduler/logout">Logout</a>
           </div>
         </div>
       </div>

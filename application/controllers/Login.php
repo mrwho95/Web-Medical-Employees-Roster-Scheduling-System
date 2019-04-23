@@ -10,6 +10,7 @@ class login extends CI_Controller
 		$this->load->view('Login_Page');
 	}
 
+
 		public function scheduler_form_validation()
 		{
 			$this->load->library('form_validation');
@@ -32,8 +33,16 @@ class login extends CI_Controller
 						'schedulerID' => $schedulerID
 					);
 					$this->session->set_userdata($session_data);
+					$this->session->set_userdata('entrance', true);
+
+					// session_start();
+					// if (isset($_POST['insert']))
+					// {
+					// 	$_SESSION['last_login_timestamp'] = time();
+					// }
+				
 					$this->scheduler_recaptcha();
-					return redirect('scheduler_index');
+					// return redirect('scheduler/index');
 					//redirect(base_url().'scheduler/index');
 				}
 				else
@@ -69,6 +78,7 @@ class login extends CI_Controller
 						'adminID' => $adminID
 					);
 					$this->session->set_userdata($session_data);
+					$this->session->set_userdata('entrance', true);
 					$this->admin_recaptcha();
 					//redirect(base_url().'admin/index');
 				}

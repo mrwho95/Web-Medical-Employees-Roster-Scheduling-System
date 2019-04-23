@@ -47,7 +47,8 @@ class admin2 extends CI_Controller
         {
             $this->load->model("admin_operation"); 
                 $insert_data = array(  
-                    "Name"=>$this->input->post("fullname"),  
+                    "Name"=>$this->input->post("fullname"),
+                    "ClinicianID"=>$this->input->post("clinicianID"),  
                     "Password"=>$this->input->post("inputpassword"),
                     "Email"=>$this->input->post("inputEmail"),
                     "Department"=>$this->input->post("department"),
@@ -66,7 +67,8 @@ class admin2 extends CI_Controller
         {
             $this->load->model("admin_operation"); 
                 $updated_data = array(  
-                    "Name"=>$this->input->post("fullname"),  
+                    "Name"=>$this->input->post("fullname"),
+                    "ClinicianID"=>$this->input->post("clinicianID"),  
                     "Password"=>$this->input->post("inputpassword"),
                     "Email"=>$this->input->post("inputEmail"),
                     "Department"=>$this->input->post("department"),

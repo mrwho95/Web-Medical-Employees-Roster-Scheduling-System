@@ -29,6 +29,14 @@ public function delete_event($id)
 {
     $this->db->where("ID", $id)->delete("calendar_events");
 }
+
+public function get_all_events()
+{
+	$this->db->select("*");
+	$this->db->from("roster");
+	$query = $this->db->get()->result_array();
+	return $query;
+}
 	
 }
 

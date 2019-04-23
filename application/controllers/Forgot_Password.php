@@ -80,7 +80,10 @@ class Forgot_Password extends CI_Controller
 		$data = $this->input->post();
 		if ($data['inputnewPassword'] == $data['inputcPassword']) {
 			$this->db->query("update scheduler set Password='".$data['inputnewPassword']."'where Password='".$_SESSION['tokan']."'");
-			echo "Update password successful!";
+
+			$this->session->set_flashdata('success_msg_update_scheduler_password', 'Update Password Successful!');
+			return redirect('Forgot_Password/reset');
+			
 		}else{
 			echo "Update password failed!";
 		}
@@ -128,7 +131,10 @@ class Forgot_Password extends CI_Controller
 		$data = $this->input->post();
 		if ($data['inputnewPassword'] == $data['inputcPassword']) {
 			$this->db->query("update admin set Password='".$data['inputnewPassword']."'where Password='".$_SESSION['tokan']."'");
-			echo "Update password successful!";
+
+			$this->session->set_flashdata('success_msg_update_admin_password', 'Update Password Successful!');
+			return redirect('Forgot_Password/admin_reset');
+			
 		}else{
 			echo "Update password failed!";
 		}

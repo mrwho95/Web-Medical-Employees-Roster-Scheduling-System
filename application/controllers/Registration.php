@@ -34,11 +34,17 @@ class Registration extends CI_Controller
 
 				$this->main_model->scheduler_insert($data);
 
-				redirect(base_url()."login/index");
+				 $this->session->set_flashdata('success_msg', 'Register Scheduler Account Successful.');
+        		 
+				redirect(base_url()."Registration/scheduler_register_index");
+
+				// $this->output->set_header('refresh:3; url=login/index');
 			}
 			else
 			{
-				$this->scheduler_register_index();
+				$this->session->set_flashdata('error_msg', 'Failed Register Scheduler Account.');
+        		return redirect(base_url()."Registration/scheduler_register_index");
+				// $this->scheduler_register_index();
 			}
 
 		}
@@ -70,15 +76,18 @@ class Registration extends CI_Controller
 				"Password" =>$this->input->post("inputPassword")
 				);
 
-				
-
 				$this->main_model->admin_insert($data);
-
-				redirect(base_url()."login/index");
+				 $this->session->set_flashdata('success_msg', 'Register Administrator Account Successful.');
+        		 
+				redirect(base_url()."Registration/admin_register_index");
+				
+				// $this->output->set_header('refresh:3; url=login/index');
 			}
 			else
 			{
-				$this->admin_register_index();
+				$this->session->set_flashdata('error_msg', 'Failed Register Administrator Account.');
+        		return redirect(base_url()."Registration/admin_register_index");
+				// $this->scheduler_register_index();
 			}
 
 		}

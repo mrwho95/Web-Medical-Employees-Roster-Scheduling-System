@@ -20,12 +20,16 @@
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
 
+    <link href="<?php echo base_url();?>assets/css/loginpage.css" rel="stylesheet">
+
   </head>
 
-  <body class="bg-dark">
-
+  <body>
+    <div class="split left" style="width: 100%;">
+        <h1 style="top: 50px;">The Scheduler</h1>
+    </div>
     <div class="container">
-      <div class="card card-login mx-auto mt-5">
+      <div class="card card-login mx-auto" style="margin-top: 15%;">
         <div class="card-header">Change Password</div>
         <div class="card-body">
           <div class="text-center mb-4">
@@ -42,6 +46,16 @@
                 <label for="inputcPassword">Confirm New Password</label>
               </div>
             </div>
+
+            <?php if($error = $this->session->flashdata('success_msg_update_scheduler_password')): ?>
+              <div class="alert alert-success alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong> <?= $error?>
+              </div><br>
+            <?php endif; ?>
+
             <input type="submit" class="btn btn-primary btn-block" value="Update Password">
           </form>
           <?php 

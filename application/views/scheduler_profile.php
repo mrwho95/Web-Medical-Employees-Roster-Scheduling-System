@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="refresh" content="900;url= sessionexpired" />
 
-    <title>Scheduler</title>
+    <title>Scheduler Profile</title>
 
     <!-- Bootstrap core CSS-->
     <link href="<?php echo base_url(); ?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +37,7 @@
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
       <a href="<?php echo base_url(); ?>scheduler/index">
       <img src="<?php echo base_url(); ?>assets/photo/roster_icon.png" width="50px" height="50px"></a>
-      <a class="navbar-brand mr-1" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
+      <a class="navbar-brand mr-1" style ="margin-left: 10px;" href="<?php echo base_url(); ?>scheduler/index">Scheduler-Medical Employees Scheduling</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle">
         <i class="fas fa-bars"></i>
@@ -97,7 +98,7 @@
           </a>
           
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url(); ?>scheduler/jobplanning">
+          <a class="nav-link" href="<?php echo base_url(); ?>scheduling/jobplanning">
             <i class="fas fa-fw fa-table"></i>
             <span>Job Planning</span></a>
         </li>
@@ -343,7 +344,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="<?php echo base_url(); ?>login/index">Logout</a>
+            <a class="btn btn-primary" href="<?php echo base_url(); ?>scheduler/logout">Logout</a>
           </div>
         </div>
       </div>

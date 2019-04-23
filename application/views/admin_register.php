@@ -20,16 +20,33 @@
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
 
+    <link href="<?php echo base_url();?>assets/css/loginpage.css" rel="stylesheet">
+
 
   </head>
 
-  <body class="bg-dark">
-
+  <body>
+    <div class="split right" style="width: 100%;">
+        <h1 style="top: 50px;">The Administrator</h1>
+    </div>
     <div class="container">
-      <div class="card card-register mx-auto mt-5">
+      <div class="card card-register mx-auto" style="margin-top: 15%;">
         <div class="card-header">Register an Administrator Account</div>
         <div class="card-body">
           <form action="<?php echo base_url()?>Registration/admin_form_validation" method="post">
+            <form action="<?php echo base_url()?>Registration/form_validation" method="post">
+            <?php if($error = $this->session->flashdata('success_msg')): ?>
+          <div class="alert alert-success alert-dismissible" role = "alert">
+            <button type="button" class="close" data-dismiss= "alert" aria-label = "close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> <?= $error?>
+          </div>
+        <?php endif; ?>
+        <?php if($error = $this->session->flashdata('error_msg')): ?>
+          <div class="alert alert-danger alert-dismissible" role = "alert">
+            <button type="button" class="close" data-dismiss= "alert" aria-label = "close"><span aria-hidden="true">&times;</span></button>
+            <strong>Failed!</strong> <?= $error?>
+          </div>
+          <?php endif; ?>
             <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">
@@ -98,6 +115,7 @@
         </div>
       </div>
     </div>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
