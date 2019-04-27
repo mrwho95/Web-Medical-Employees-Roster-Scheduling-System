@@ -33,6 +33,22 @@
         <div class="card-header">Administrator Reset Password</div>
         <div class="card-body">
           <div class="text-center mb-4">
+            <?php if($error = $this->session->flashdata('Invalid Message')): ?>
+              <div class="alert alert-danger alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Failed!</strong><?= $error?>
+              </div><br>
+            <?php endif; ?>
+            <?php if($error = $this->session->flashdata('Success Message')): ?>
+              <div class="alert alert-success alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
+                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+              <strong>Success!</strong><?= $error?>
+              </div><br>
+            <?php endif; ?>
             <h4>Forgot your password?</h4>
             <p>Enter your email address and we will send you instructions on how to reset your password.</p>
           </div>

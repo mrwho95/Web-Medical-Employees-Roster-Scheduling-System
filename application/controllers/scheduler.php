@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once './vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
 
 
 
@@ -24,29 +27,57 @@ class scheduler extends CI_Controller {
 
 		public function index()
 	{
-    $this->load->model("main_model");
-    $data["fetch_data"] = $this->main_model->fetch_roster_data();
+    // $this->load->model("main_model");
+    // $data["fetch_data"] = $this->main_model->fetch_roster_data();
+     $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $database = $firebase->getDatabase();
+
+    $reference = $database->getReference('/official_duty_roster');
+    // $total_user = $reference->getSnapshot()->numChildren();
+      $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
+      $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
+
 		$this->load->view('scheduler_index',$data);
 	}
 
   public function fetch_duty_schedule_pdf(){
-    $this->load->model("main_model");
-    $data = $this->main_model->fetch_roster_data();
+    // $this->load->model("main_model");
+    // $data = $this->main_model->fetch_roster_data();
+
+    $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $database = $firebase->getDatabase();
+
+    $reference = $database->getReference('/official_duty_roster');
+    // $total_user = $reference->getSnapshot()->numChildren();
+      $data1 = $reference->getSnapshot()->getValue();
+      $data2= $reference->getSnapshot()->numChildren();
+
+
     $output = '';
-    if ($data ->num_rows() > 0) {
-      foreach ($data -> result() as $row) {
+    if ($data2 > 0) {
+      foreach ($data1 as $key => $data) {
         $output .= '<tr>
-                      <td>'.$row->Name.'</td>
-                      <td>'.$row->Position.'</td>
-                      <td>'.$row->L.'/20</td>
-                      <td>'.$row->PH.'/19</td>
-                      <td>'.$row->MON.'</td>
-                      <td>'.$row->TUE.'</td>
-                      <td>'.$row->WED.'</td>
-                      <td>'.$row->THU.'</td>
-                      <td>'.$row->FRI.'</td>
-                      <td>'.$row->SAT.'</td>
-                      <td>'.$row->SUN.'</td>
+                      <td>'.$data1[$key]['Name'].'</td>
+                      <td>'.$data1[$key]['Role'].'</td>
+                      <td>'.$data1[$key]['L'].'</td>
+                      <td>'.$data1[$key]['PH'].'</td>
+                      <td>'.$data1[$key]['MON'].'</td>
+                      <td>'.$data1[$key]['TUE'].'</td>
+                      <td>'.$data1[$key]['WED'].'</td>
+                      <td>'.$data1[$key]['THU'].'</td>
+                      <td>'.$data1[$key]['FRI'].'</td>
+                      <td>'.$data1[$key]['SAT'].'</td>
+                      <td>'.$data1[$key]['SUN'].'</td>
                     </tr>'; 
       }
       
@@ -103,6 +134,12 @@ class scheduler extends CI_Controller {
       $content .= $this->fetch_duty_schedule_pdf();
       $content .= '
             <tfoot>
+             <tr>
+                <td colspan="12">L = Annual Leave Remain</td>
+              </tr>
+              <tr>
+                <td colspan="12">PH = Public Holiday Leave Remain</td>
+              </tr>
               <tr>
                 <td colspan="12">Morning Shift AM - 0700-1400 (Nurse) / 0700-1900 (Doctor)</td>
               </tr>
@@ -162,7 +199,17 @@ class scheduler extends CI_Controller {
 
 		public function staff()
 	{
+    
+
+
+ 
+
+   
+
+   
+
 		$this->load->view('scheduler_staff');
+
 	}
 
 	public function scheduler_details(){
@@ -235,31 +282,45 @@ public function update_scheduler_form_validation()
 
 
     public function fetch_clinician_data(){
-    $this->load->model("admin_model");  
-           $fetch_clinician_data = $this->admin_model->make_clinician_datatables();  
-           $data = array();  
-           foreach($fetch_clinician_data as $row)
+    // $this->load->model("admin_model");  
+    //        $fetch_clinician_data = $this->admin_model->make_clinician_datatables();  
+    //        $data = array();  
+      $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $database = $firebase->getDatabase();
+
+    $reference = $database->getReference('/Users');
+    $snapshot = $reference->getSnapshot();
+    $all_user = $snapshot->getValue();
+
+    $total_user = $snapshot->numChildren();
+
+
+           foreach($all_user as $key => $value)
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;
-                $sub_array[] = $row->ClinicianID;  
-                $sub_array[] = $row->Gender;
-                $sub_array[] = $row->Age;
-                $sub_array[] = $row->Phone_Number;
-                $sub_array[] = $row->Address;
-                $sub_array[] = $row->Email; 
-                $sub_array[] = $row->Position; 
-                $sub_array[] = $row->Department;  
-                $sub_array[] = $row->Hospital;   
-                $sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';  
-                $sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';  
+                $sub_array[] = $all_user[$key]['userEmail'];
+                $sub_array[] = $all_user[$key]['userStaffID'];
+                $sub_array[] = $all_user[$key]['userAge'];
+                $sub_array[] = $all_user[$key]['userHandphone'];
+                $sub_array[] = $all_user[$key]['userHomeAddress'];
+                $sub_array[] = $all_user[$key]['userEmail'];
+                $sub_array[] = $all_user[$key]['userPosition'];
+                $sub_array[] = $all_user[$key]['userDepartment'];
+                $sub_array[] = $all_user[$key]['userHospital'];  
+                $sub_array[] = '<button type="button" name="update" id="'.$key.'" class="btn btn-warning btn-xs update">Update</button>';  
+                $sub_array[] = '<button type="button" name="delete" id="'.$key.'" class="btn btn-danger btn-xs delete">Delete</button>';  
                 $data[] = $sub_array;  
            }  
            $output = array(  
                 "draw" => intval($_POST["draw"]),  
-                "recordsTotal"=>$this->admin_model->get_all_clinician_data(),  
-                "recordsFiltered"=>$this->admin_model->get_filtered_clinician_data(),  
+                "recordsTotal"=>$total_user,  
+                // "recordsFiltered"=>$this->admin_model->get_filtered_clinician_data(),  
                 "data"=>$data  
            );  
            echo json_encode($output);  

@@ -56,7 +56,7 @@
               </div><br>
             <?php endif; ?>
 
-            <input type="submit" class="btn btn-primary btn-block" value="Update Password">
+            <input type="submit" class="btn btn-primary btn-block" value="Reset Password">
           </form>
           <?php 
            $this->session->flashdata('message');

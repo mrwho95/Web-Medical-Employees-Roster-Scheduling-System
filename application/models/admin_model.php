@@ -46,8 +46,8 @@ class admin_model extends CI_Model
     var $select_scheduler_column = array("id", "SchedulerID", "Name", "Gender", "Phone_Number","Email","Department","Hospital");  
     var $order_scheduler_column = array(null, "SchedulerID", "Name", "Gender",  "Phone_Number","Email","Department","Hospital");  
 
-    var $select_clinician_column = array("id", "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
-    var $order_clinician_column = array(null, "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital");  
+    var $select_clinician_column = array("id", "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital", "Medical_Leave", "Shift_Preference");  
+    var $order_clinician_column = array(null, "Name", "ClinicianID", "Gender", "Age", "Phone_Number", "Address","Email","Position","Department","Hospital", "Medical_Leave", "Shift_Preference");  
 
     var $select_department_column = array("id", "Name", "Unit", "Manager_Name");
     var $order_department_column = array(null, "Name", "Unit", "Manager_Name");

@@ -117,30 +117,12 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="<?php echo base_url(); ?>scheduler/jobplanning">Job Planning</a>
+              <a href="<?php echo base_url(); ?>scheduling/jobplanning">Job Planning</a>
             </li>
             <li class="breadcrumb-item active">Overview</li>
           </ol>
 
-          <?php if($error = $this->session->flashdata('success_msg_next_person')): ?>
-              <div class="alert alert-success alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
-                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              <strong>Success!</strong> <?= $error?>
-              </div><br>
-            <?php endif; ?>
-
-            <?php if($error = $this->session->flashdata('success_msg_update_roster')): ?>
-              <div class="alert alert-info alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
-                <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              <strong>Success!</strong> <?= $error?>
-              </div><br>
-            <?php endif; ?>
-
-             <?php if($error = $this->session->flashdata('success_msg_delete_last_row')): ?>
+        <?php if($error = $this->session->flashdata('success_msg_delete_last_row')): ?>
               <div class="alert alert-warning alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
                 <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
                   <span aria-hidden="true">&times;</span>
@@ -149,96 +131,7 @@
               </div><br>
             <?php endif; ?>
 
-          <!-- <div class="card mx-5">
-            <div class="card-header">
-              <i class="fa fa-user">Clinician info</i>
-            </div>
-          <div class="card-body">
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">Name: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Name;
-                      } 
-                  ?>               
-                </div>
-                <div class="col-md-6">
-                  Clinician ID: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->ClinicianID;
-                      } 
-                  ?>        
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                  Email: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Email;
-                      } 
-                  ?>   
-                </div>
-                <div class="col-md-6">
-                 Gender: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Gender;
-                      } 
-                  ?>       
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                  Department: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Department;
-                      } 
-                  ?>       
-                </div>
-                <div class="col-md-6">
-                 Phone Number: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Phone_Number;
-                      } 
-                  ?>    
-                </div>
-              </div>
-            </div>
-             <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                 Hospital: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Hospital;
-                      } 
-                  ?>        
-                </div>
-                <div class="col-md-6">
-                 Leave: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Medical_Leave;
-                      } 
-                  ?>        
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                  Shift Preference for this week: <?php foreach($fetch_clinician_data->result() as $row){
-                    echo $row->Shift_Preference;
-                      } 
-                  ?>   
-                </div>
-              </div>
-            </div>
-            <form method="post" action="<?php echo base_url()?>scheduling/next_person">
-              <input type="submit" id="next" name="next" class="btn btn-success" value="Next Person" style="float: right;" />
-            </form>
-            <form method="post" action="<?php echo base_url()?>scheduling/update_duty_table">
-              <input type="submit" id="update_duty_roster" name="update_duty_roster" class="btn btn-info" value="Update Duty Roster" style="float: right; margin-right: 10px" />
-            </form>
-            
-        </div>
-      </div><br><br> -->
-
-        <table class="table table-bordered table-striped table-hover" style="width: 90%; margin: auto;">
-            <?php if($error = $this->session->flashdata('success_msg_generate_roster')): ?>
+        <?php if($error = $this->session->flashdata('success_msg_generate_roster')): ?>
               <div class="alert alert-info alert-dismissible"   style="width: 90%; margin: auto;" role = "alert">
                 <button type="button" class="close" data-dismiss= "alert"  aria-label = "close">
                   <span aria-hidden="true">&times;</span>
@@ -256,15 +149,17 @@
               </div><br>
             <?php endif; ?>
 
+        <table class="table table-bordered table-striped table-hover" style="width: 90%; margin: auto;">
             <thead>
               <tr>
-                <td colspan="9" style="text-align: center; font-weight: bold;">
+                <td colspan="10" style="text-align: center; font-weight: bold;">
                   MEDICAL EMPLOYEE JOB SCHEDULING (DUTY ROSTER)
                 </td>
               </tr>
               <tr>
-                <td colspan="9" style="text-align: center; font-weight: bold;">
+                <td colspan="10" style="text-align: center; font-weight: bold;">
                   <?php echo $firstdate." - ".$lastdate; ?>
+         
                 </td>
               </tr>
               <tr style="text-align: center;">
@@ -277,31 +172,38 @@
                 <th>FRI</th>
                 <th>SAT</th>
                 <th>SUN</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody style="text-align: center;">
+
               <?php 
-                if ($fetch_clinician_data->num_rows() > 0 ) {
-                  foreach ($fetch_clinician_data->result() as $row) {
+                if ($total_duty_user > 0 ) {
+                  foreach ($fetch_clinician_data as $key => $data) {
                     ?>
                     <tr>
-<!--                       <td><?php echo $row->ID; ?></td> -->
-                      <td><?php echo $row->Name; ?></td>
-                      <td><?php echo $row->Position; ?></td>
-                      <td><?php echo $row->MON; ?></td>
-                      <td><?php echo $row->TUE; ?></td>
-                      <td><?php echo $row->WED; ?></td>
-                      <td><?php echo $row->THU; ?></td>
-                      <td><?php echo $row->FRI; ?></td>
-                      <td><?php echo $row->SAT; ?></td>
-                      <td><?php echo $row->SUN; ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['Name'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['Role'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['MON'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['TUE'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['WED'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['THU'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['FRI'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['SAT'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['SUN'] ?></td>
+                      <td><form method="post" action="<?php echo base_url()?>scheduling/delete_row">
+                          <input type="text" id="invi" style="visibility: hidden;" name="Delete" class="btn btn-warning" value=<?php echo $key  ?>   >
+
+                          <input class="btn btn-warning" type="submit" name="submit" style="margin-left: -200px;" value="Delete">
+
+                          </form></td>
                     </tr>
                     <?php 
                   }
                 }else{
                   ?>
                   <tr>
-                    <td colspan="9" style="text-align: center;">No Data Found</td>
+                    <td colspan="10" style="text-align: center;">No Data Found</td>
                   </tr>
                   <?php
                 }
@@ -313,9 +215,9 @@
             <form method="post" action="<?php echo base_url()?>scheduling/clear_duty_roster">
             <input type="submit" id="Clear_Duty_Roster" name="Clear_Duty_Roster" class="btn btn-danger" value="Clear Duty Roster" style="float: right;" />
             </form>
-            <form method="post" action="<?php echo base_url()?>scheduling/redo">
+            <!-- <form method="post" action="<?php echo base_url()?>scheduling/redo">
               <input type="submit" id="Redo" name="Redo" class="btn btn-warning" value="Redo" style="float: right; margin-right: 10px;" />
-            </form>
+            </form> -->
             <form method="post" action="<?php echo base_url()?>scheduling/generate_duty_roster">
              <input type="submit" id="Generate_Duty_Roster" name="Generate_Duty_Roster" class="btn btn-primary" value="Generate Duty Roster" style="float: right; margin-right: 10px;" />
             </form>
@@ -344,6 +246,8 @@
                       <th>Position</th>
                       <th>Department</th>
                       <th>Hospital</th>
+                      <th>Medical Leave</th>
+                      <th>Shift Preference</th>
                       <th>Update Duty Roster</th>
 <!--                       <th>Delete</th> -->
                     </tr>
@@ -360,6 +264,8 @@
                       <th>Position</th>
                       <th>Department</th>
                       <th>Hospital</th>
+                      <th>Medical Leave</th>
+                      <th>Shift Preference</th>
                       <th>Update Duty Roster</th>
 <!--                       <th>Delete</th> -->
                     </tr>
@@ -462,7 +368,8 @@
 
       //edit clinician
     $(document).on('click', '.update', function(){  
-           var user_id = $(this).attr("ID");
+           var user_id = $(this).attr("id");
+
 
            $.ajax({  
                 url:"<?php echo base_url(); ?>scheduling/update_duty_table",  

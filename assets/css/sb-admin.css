@@ -76,7 +76,9 @@ body.fixed-nav.sidebar-toggled #content-wrapper {
 .o-hidden {
   overflow: hidden !important;
 }
-
+#invi {
+  visibility: hidden!important;
+}
 .z-0 {
   z-index: 0;
 }

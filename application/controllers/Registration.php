@@ -43,8 +43,8 @@ class Registration extends CI_Controller
 			else
 			{
 				$this->session->set_flashdata('error_msg', 'Failed Register Scheduler Account.');
-        		return redirect(base_url()."Registration/scheduler_register_index");
-				// $this->scheduler_register_index();
+    //     		return redirect(base_url()."Registration/scheduler_register_index");
+				$this->scheduler_register_index();
 			}
 
 		}
@@ -86,8 +86,8 @@ class Registration extends CI_Controller
 			else
 			{
 				$this->session->set_flashdata('error_msg', 'Failed Register Administrator Account.');
-        		return redirect(base_url()."Registration/admin_register_index");
-				// $this->scheduler_register_index();
+    //     		return redirect(base_url()."Registration/admin_register_index");
+				$this->admin_register_index();
 			}
 
 		}

@@ -131,7 +131,7 @@
                       <tr>
                       <th>Name</th>
                       <th>Clinician ID</th>
-                      <th>Gender</th>
+                
                       <th>Age</th>
                       <th>Phone Number</th>
                       <th>Address</th>
@@ -147,7 +147,7 @@
                     <tr>
                       <th>Name</th>
                       <th>Clinician ID</th>
-                      <th>Gender</th>
+                      
                       <th>Age</th>
                       <th>Phone Number</th>
                       <th>Address</th>
@@ -320,7 +320,7 @@
     $(document).on('submit', '#clinician_form', function(event){  
            event.preventDefault();  
            var Full_Name = $('#fullname').val();  
-           var Gender = $('#gender').val();  
+            
            var Clinician_ID = $('#clinicianID').val();
            var Password = $('#inputpassword').val();
            var Phone_Number = $('#phonenumber').val();
@@ -369,7 +369,7 @@
                      $('#inputEmail').val(data.inputEmail);
                      $('#clinicianID').val(data.clinicianID);  
                      $('#password').val(data.password);
-                     $('#gender').val(data.gender);
+                     
                      $('#age').val(data.age);  
                      $('#position').val(data.position);
                      $('#address').val(data.address); 

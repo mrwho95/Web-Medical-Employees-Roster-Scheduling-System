@@ -135,7 +135,6 @@
                 <td colspan="12"><?php echo $firstdate." - ".$lastdate; ?></td>
               </tr>
               <tr>
-<!--                 <th>No</th> -->
                 <th>Name</th>
                 <th>Role</th>
                 <th>L</th>
@@ -151,6 +150,12 @@
             </thead>
             <tfoot>
               <tr>
+                <td colspan="12">L = Annual Leave Remain</td>
+              </tr>
+              <tr>
+                <td colspan="12">PH = Public Holiday Leave Remain</td>
+              </tr>
+              <tr>
                 <td colspan="12">Morning Shift AM - 0700-1400 (Nurse) / 0700-1900 (Doctor)</td>
               </tr>
               <tr>
@@ -165,22 +170,21 @@
             </tfoot>
             <tbody style="text-align: center;">
               <?php 
-                if ($fetch_data->num_rows() > 0 ) {
-                  foreach ($fetch_data->result() as $row) {
+                if ($total_duty_user > 0 ) {
+                  foreach ($fetch_clinician_data as $key => $data) {
                     ?>
                     <tr>
-<!--                       <td><?php echo $row->ID; ?></td> -->
-                      <td><?php echo $row->Name; ?></td>
-                      <td><?php echo $row->Position; ?></td>
-                      <td><?php echo "$row->L / 20" ?></td>
-                      <td><?php echo "$row->PH / 19"; ?></td>
-                      <td><?php echo $row->MON; ?></td>
-                      <td><?php echo $row->TUE; ?></td>
-                      <td><?php echo $row->WED; ?></td>
-                      <td><?php echo $row->THU; ?></td>
-                      <td><?php echo $row->FRI; ?></td>
-                      <td><?php echo $row->SAT; ?></td>
-                      <td><?php echo $row->SUN; ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['Name'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['Role'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['L'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['PH'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['MON'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['TUE'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['WED'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['THU'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['FRI'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['SAT'] ?></td>
+                      <td><?php echo $fetch_clinician_data[$key]['SUN'] ?></td>
                     </tr>
                     <?php 
                   }
