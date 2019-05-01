@@ -255,6 +255,10 @@
       </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-app.js"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -278,57 +282,114 @@
 
   </body>
 
-   <script>
-      $(document).ready(function() {
-    var initialLocaleCode = 'en';
+  <script>
 
+
+  </script>
+
+
+
+<script>
+
+  //configure Firebase
+  var firebaseConfig = {
+    apiKey: "AIzaSyDKNgmT9Bly0cXZGIYqyTxq8lEFBIy402Y",
+    authDomain: "project-id.firebaseapp.com",
+    databaseURL: "https://medical-77850.firebaseio.com/",
+    projectId: "medical-77850",
+  };
+ firebase.initializeApp(firebaseConfig);
+ var database = firebase.database();
+
+
+ var config = {
+    apiKey: "AIzaSyBWdb3LNY2Ji9S165NUoQ9JIZjGxzlTmnY",
+    authDomain: "smart-kadus.firebaseapp.com",
+    databaseURL: "https://smart-kadus.firebaseio.com",
+    projectId: "smart-kadus",
+    storageBucket: "smart-kadus.appspot.com",
+    messagingSenderId: "731787069959"
+  };
+
+  firebase.initializeApp(config);
+  var ref =  firebase.database().ref('online_class_test_result/'+{{ $class_object->id }}+'/'+{{ $test_obj->id }}+'/student');
+ //END configure Firebase
+
+ //load all the data
+
+//Load the
+  $(document).ready(function() {
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
+        right: 'month,agendaWeek,agendaDay,listWeek'
       },
-      // defaultDate: '2019-03-12',
-      locale: initialLocaleCode,
-      buttonIcons: true, // show the prev/next text
-      weekNumbers: true,
+      defaultDate: '2019-01-12',
       navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectHelper: true,
       editable: true,
-       timeFormat: 'H(:mm)',
-      // displayEventTime: false,
       eventLimit: true, // allow "more" link when too many events
-      events: '<?php echo base_url()?>scheduler/getcalendarevents',
-      // [
-      //   {
-      //     title: 'All Day Event',
-      //     start: '2019-04-05'
-      //   }
-      // ]
+      events: [
+        {
+          title: 'All Day Event',
+          start: '2019-01-01',
+        },
+        {
+          title: 'Long Event',
+          start: '2019-01-07',
+          end: '2019-01-10'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2019-01-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2019-01-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2019-01-11',
+          end: '2019-01-13'
+        },
+        {
+          title: 'Meeting',
+          start: '2019-01-12T10:30:00',
+          end: '2019-01-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2019-01-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2019-01-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2019-01-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2019-01-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2019-01-13T07:00:00'
+        },
+        {
+          title: 'Click for Google',
+          url: 'http://google.com/',
+          start: '2019-01-28'
+        }
+      ]
     });
 
-    $('#calendar').fullCalendar('gotoDate', currentDate);
-
-        // build the locale selector's options
-    $.each($.fullCalendar.locales, function(localeCode) {
-      $('#locale-selector').append(
-        $('<option/>')
-          .attr('value', localeCode)
-          .prop('selected', localeCode == initialLocaleCode)
-          .text(localeCode)
-      );
-    });
-
-    // when the selected option changes, dynamically change the calendar option
-    $('#locale-selector').on('change', function() {
-      if (this.value) {
-        $('#calendar').fullCalendar('option', 'locale', this.value);
-      }
-    });
   });
 
-    </script> 
+</script>
 
 </html>
 

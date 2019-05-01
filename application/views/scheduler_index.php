@@ -137,8 +137,8 @@
               <tr>
                 <th>Name</th>
                 <th>Role</th>
-                <th>L</th>
-                <th>PH</th>
+                <th>L / 20</th>
+                <th>PH / 19</th>
                 <th>MON</th>
                 <th>TUE</th>
                 <th>WED</th>

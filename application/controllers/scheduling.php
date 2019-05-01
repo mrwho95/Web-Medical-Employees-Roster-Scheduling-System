@@ -4,6 +4,12 @@ require_once './vendor/autoload.php';
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 
+use Kreait\Firebase\Messaging\Message;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
+use Kreait\Firebase\Messaging\MessageToTopic;
+
+
 /**
  * 
  */
@@ -33,8 +39,34 @@ public function jobplanning()
 
     $reference = $database->getReference('/duty_table');
     // $total_user = $reference->getSnapshot()->numChildren();
-      $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
-      $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
+    $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
+    $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
+
+
+    // $clinician_reference = $database->getReference('Users')->getSnapshot()->getValue();
+    // $leave_reference = $database->getReference('Medical Leave')->getSnapshot()->getValue();
+
+    // foreach ($clinician_reference as $key => $value) {
+    //   $position = $database->getReference('Users/'.$key.'/userPosition')->getSnapshot()->getValue();
+    //   $username = $database->getReference('Users/'.$key.'/userFullName')->getSnapshot()->getValue();
+    // }
+    // foreach ($leave_reference as $key => $value) {
+    //   $Medical_leave_duration = $database->getReference('Medical Leave/'.$key.'/leaveduration')->getSnapshot()->getValue();
+    //   $start_date = $database->getReference('Medical Leave/'.$key.'/leavestartdate')->getSnapshot()->getValue();
+    //   $end_date = $database->getReference('Medical Leave/'.$key.'/leaveenddate')->getSnapshot()->getValue();
+    // }
+      
+    //   if ($position == "Nurse" || "nurse") {
+    //     if($Medical_leave_duration == "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9" || "10" || "11" || "12" || "13" || "14" )
+    //     {
+    //       $this->generate_clinician_cover();
+    //     }
+    //   }elseif ($doctor == "Doctor" || "doctor") {
+    //     if($Medical_leave_duration == "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8" || "9" || "10" || "11" || "12" || "13" || "14" )
+    //     {
+    //       // $this->generate_clinician_cover();
+    //     }
+    //   }
   
 
 
@@ -52,20 +84,96 @@ public function sessionexpired(){
     redirect('login/index');
   }
 
-// public function next_person(){
-// 	$this->load->model('scheduling_model');
-// 	$id = 2;
-// 		$data["fetch_clinician_data"]=$this->scheduling_model->get_nextperson($id);
+public function generate_clinician_cover(){
 
-// 	return $this->load->view('scheduler_jobplanning', $data);
-	
-// 		// $data["fetch_clinician_data"]=$this->scheduling_model->get_nextperson($id);
-// 	$this->session->set_flashdata('success_msg_next_person', 'Move to Next Person.');
-// 	// $this->load->view('scheduler_jobplanning', $data);
-// 	// return redirect('scheduling/jobplanning');
-// 	}
+  $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $newPostKey = $database->getReference('Notification')->push()->getKey();
 
 
+          date_default_timezone_set("Asia/Kuala_Lumpur");
+          // echo date('d-m-Y H:i:s'); //Returns IST
+
+  $database = $firebase->getDatabase();
+
+  $clinician_reference = $database->getReference('Users')->getSnapshot()->getValue();
+
+  foreach ($clinician_reference as $key => $value) {
+      $position = $database->getReference('Users/'.$key.'/userPosition')->getSnapshot()->getValue();
+      $username = $database->getReference('Users/'.$key.'/userFullName')->getSnapshot()->getValue();
+    }
+
+    if ($position == "Nurse" || "nurse") {
+
+      $this->send_duty_alert_notification();
+    }elseif ($position == "Doctor" || "doctor") {
+
+      $this->send_duty_alert_notification();
+    }
+
+}
+
+public function send_duty_alert_notification(){
+   $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+      ->withServiceAccount($serviceAccount)
+      ->create();
+
+      $messaging = $firebase->getMessaging();
+
+    $title = 'New Duty Roster is published';
+    $body = 'New Duty Roster from '.$date.'. Please kindly check it.';
+
+    
+    $notification = Notification::create($title, $body);
+
+    $notification = Notification::create()
+        ->withTitle($title)
+        ->withBody($body);
+
+    $notification = Notification::fromArray([
+        'title' => $title,
+        'body' => $body
+    ]);
+
+    $topic = 'hello';
+
+    $message = CloudMessage::withTarget('topic', $topic)
+        ->withNotification($notification) // optional
+        // ->withData($data) // optional
+    ;
+
+    $message = CloudMessage::fromArray([
+        'topic' => $topic,
+        'notification' =>['title'=>$title, 'body'=>$body,], // optional
+        // 'data' => [/* data array */], // optional
+    ]);
+
+    $messaging->send($message);
+
+    $database = $firebase->getDatabase();
+    $newPostKey = $database->getReference('Notification')->push()->getKey();
+
+    date_default_timezone_set("Asia/Kuala_Lumpur");
+    // echo date('d-m-Y H:i:s'); //Returns IST
+    $postData = [
+            'NotificationMessage' => 'New Duty Roster from '.$date.'. Please kindly check it.',
+            'NotificationTimestamp' => date('d-m-Y H:i:s'),
+            'NotificationTitle' => 'On Leave',
+            
+        ];
+        $updates = [
+            'Notification/'.$newPostKey => $postData,
+
+        ];
+            $database->getReference() // this is the root reference
+            ->update($updates);
+}
 
 
 public function update_duty_table(){
@@ -87,7 +195,7 @@ public function update_duty_table(){
     $position = $database->getReference('/Users/'.$clinician_data.'/userPosition')->getSnapshot()->getValue();   
     $Shift_Preference = $database->getReference('/Shift/Shift Preference/'.$clinician_data)->getSnapshot()->getValue();
 
-// foreach ($clinician_data->result() as $row) {
+
 	$Morning = "Morning";
 	$Afternoon = "Afternoon";
 	$Night = "Night";
@@ -366,23 +474,18 @@ public function generate_duty_roster(){
 
     $duty_table_reference = $database->getReference('duty_table')->getSnapshot()->getValue();
 
-    // $official_duty_roster = $database->getReference('official_duty_roster');
-
     foreach ($duty_table_reference as $key => $value) {
       # code...
        $leave_reference = $database->getReference('Medical Leave/'.$key.'/Annual_Leave')->getSnapshot()->getValue();
        if ($leave_reference == "") {
-         # code...
         $leave_reference = "-";
        }
         $public_holiday_reference = $database->getReference('Medical Leave/'.$key.'/Public_Holiday')->getSnapshot()->getValue();
          if ($public_holiday_reference == "") {
-         # code...
         $public_holiday_reference = "-";
        }
          $total_leave_reference = $database->getReference('Medical Leave/'.$key.'/Total_Leave')->getSnapshot()->getValue();
           if ($total_leave_reference == "") {
-         # code...
         $total_leave_reference = "-";
        }
 
@@ -411,54 +514,74 @@ public function generate_duty_roster(){
             ->update($updates);
     }
 
+  $this->send_new_duty_roster_message_and_notification();
+
+	$this->session->set_flashdata('success_msg_generate_roster', 'Generate New Duty Roster. New Duty Roster Notification is sent to Clinician!');
+	return redirect('scheduling/jobplanning');	
+
+	}
+
+	public function send_new_duty_roster_message_and_notification(){
+
+    $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+      ->withServiceAccount($serviceAccount)
+      ->create();
+    
+    $firstdate = date("d/m/Y", strtotime("Next Monday"));
+    $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
+    $date = $firstdate." - ".$lastdate;
+
+    $messaging = $firebase->getMessaging();
+
+    $title = 'New Duty Roster is published';
+    $body = 'New Duty Roster from '.$date.'. Please kindly check it.';
+
+    
+    $notification = Notification::create($title, $body);
+
+    $notification = Notification::create()
+        ->withTitle($title)
+        ->withBody($body);
+
+    $notification = Notification::fromArray([
+        'title' => $title,
+        'body' => $body
+    ]);
+
+    $topic = 'hello';
+
+    $message = CloudMessage::withTarget('topic', $topic)
+        ->withNotification($notification) // optional
+        // ->withData($data) // optional
+    ;
+
+    $message = CloudMessage::fromArray([
+        'topic' => $topic,
+        'notification' =>['title'=>$title, 'body'=>$body,], // optional
+        // 'data' => [/* data array */], // optional
+    ]);
+
+    $messaging->send($message);
+
+    $database = $firebase->getDatabase();
+    $newPostKey = $database->getReference('Notification')->push()->getKey();
+
     date_default_timezone_set("Asia/Kuala_Lumpur");
     // echo date('d-m-Y H:i:s'); //Returns IST
     $postData = [
-            'Message' => 'New Duty Roster from '.$date.'. Please kindly check it.',
-            'Timestamp' => date('d-m-Y H:i:s'),
-            'Title' => 'New Duty Roster',
+            'NotificationMessage' => 'New Duty Roster from '.$date.'. Please kindly check it.',
+            'NotificationTimestamp' => date('d-m-Y H:i:s'),
+            'NotificationTitle' => 'New Duty Roster',
             
         ];
         $updates = [
-            'Notification/' => $postData,
+            'Notification/'.$newPostKey => $postData,
 
         ];
             $database->getReference() // this is the root reference
             ->update($updates);
-
-	$to = "cV4SzvL6kvk:APA91bGkz_I6YT8b4Wf8N7w0Fkc8rDSMdFQnmjXEqJTp9cS-W3HMKV12mJnsWYphfv8iDeI1m-812e4PqRYF6Hnn2PVFhFvdOVPw1K6yS_xvQVv8DH7nTZfJbEb9NnW5ZAMRxMQLM_Ho";
-
-	$data = array(
-	'body' => 'New Duty Roster is published',
-	'sound'	=> 'default'
-
-	);
-
-	$this->sendPushNotification($to, $data);
-
-	$this->session->set_flashdata('success_msg_generate_roster', 'Generate New Duty Roster. New Duty Roster Notification is sent to Clinician!');
-	return redirect('scheduling/jobplanning');	
-	}
-
-	public function sendPushNotification($to = '', $data = array()){
-	$apiKey = 'AIzaSyA1G9X49txb5h32ish90HCyrwOCyX8tMfs';
-	$fields = array('to' => $to , 'notification' => $data);
-
-	$headers = array('Authorization: key='.$apiKey, 'Content-Type: application/json');
-	$url = 'https://android.googleapis.com/gcm/send';
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-	$result = curl_exec($ch);
-	curl_close($ch);
-	return json_decode($result, true);
-
 
 }
 
@@ -533,7 +656,9 @@ public function clear_duty_roster(){
                 "data"=>$data  
            );  
            echo json_encode($output);  
-      }  
+      }
+
+
 
 
 }

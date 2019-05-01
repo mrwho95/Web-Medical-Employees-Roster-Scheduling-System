@@ -1,5 +1,9 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+require_once './vendor/autoload.php';
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
 /**
  * 
  */
@@ -112,7 +116,6 @@ class admin extends CI_Controller
            foreach($fetch_scheduler_data as $row)  
            {  
                 $sub_array = array();  
-                /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
                 $sub_array[] = $row->Name;
                 $sub_array[] = $row->SchedulerID;  
                 $sub_array[] = $row->Gender;
@@ -136,31 +139,44 @@ class admin extends CI_Controller
 
       //Clinician
     public function fetch_clinician_data(){
-    $this->load->model("admin_model");  
-           $fetch_clinician_data = $this->admin_model->make_clinician_datatables();  
-           $data = array();  
-           foreach($fetch_clinician_data as $row)  
+    // $this->load->model("admin_model");  
+    //        $fetch_clinician_data = $this->admin_model->make_clinician_datatables(); 
+     $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $database = $firebase->getDatabase();
+
+    $reference = $database->getReference('/Users');
+    $snapshot = $reference->getSnapshot();
+    $all_user = $snapshot->getValue();
+
+    $total_user = $snapshot->numChildren();
+
+           // $data = array();  
+          foreach($all_user as $key => $value)
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;
-                $sub_array[] = $row->ClinicianID;
-                $sub_array[] = $row->Gender;
-                $sub_array[] = $row->Age;
-                $sub_array[] = $row->Phone_Number;
-                $sub_array[] = $row->Address;
-                $sub_array[] = $row->Email; 
-                $sub_array[] = $row->Position; 
-                $sub_array[] = $row->Department;  
-                $sub_array[] = $row->Hospital;   
-                $sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';  
-                $sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';  
+                $sub_array[] = $all_user[$key]['userFullName'];
+                $sub_array[] = $all_user[$key]['userStaffID'];
+                $sub_array[] = $all_user[$key]['userAge'];
+                $sub_array[] = $all_user[$key]['userHandphone'];
+                $sub_array[] = $all_user[$key]['userHomeAddress'];
+                $sub_array[] = $all_user[$key]['userEmail'];
+                $sub_array[] = $all_user[$key]['userPosition'];
+                $sub_array[] = $all_user[$key]['userDepartment'];
+                $sub_array[] = $all_user[$key]['userHospital']; 
+                $sub_array[] = '<button type="button" name="update" id="'.$key.'" class="btn btn-warning btn-xs update">Update</button>';  
+                $sub_array[] = '<button type="button" name="delete" id="'.$key.'" class="btn btn-danger btn-xs delete">Delete</button>';  
                 $data[] = $sub_array;  
            }  
            $output = array(  
                 "draw" => intval($_POST["draw"]),  
-                "recordsTotal"=>$this->admin_model->get_all_clinician_data(),  
-                "recordsFiltered"=>$this->admin_model->get_filtered_clinician_data(),  
+                "recordsTotal"=>$total_user,  
+                // "recordsFiltered"=>$this->admin_model->get_filtered_clinician_data(),  
                 "data"=>$data  
            );  
            echo json_encode($output);  

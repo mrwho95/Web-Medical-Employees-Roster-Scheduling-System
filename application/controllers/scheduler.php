@@ -25,70 +25,70 @@ class scheduler extends CI_Controller {
     $this->load->view('session_expired');
   }
 
-		public function index()
-	{
+  public function index()
+  {
     // $this->load->model("main_model");
     // $data["fetch_data"] = $this->main_model->fetch_roster_data();
-     $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+   $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
 
-    $firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    ->create();
+   $firebase = (new Factory)
+   ->withServiceAccount($serviceAccount)
+   ->create();
 
-    $database = $firebase->getDatabase();
+   $database = $firebase->getDatabase();
 
-    $reference = $database->getReference('/official_duty_roster');
+   $reference = $database->getReference('/official_duty_roster');
     // $total_user = $reference->getSnapshot()->numChildren();
-      $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
-      $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
+   $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
+   $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
 
-		$this->load->view('scheduler_index',$data);
-	}
+   $this->load->view('scheduler_index',$data);
+ }
 
-  public function fetch_duty_schedule_pdf(){
+ public function fetch_duty_schedule_pdf(){
     // $this->load->model("main_model");
     // $data = $this->main_model->fetch_roster_data();
 
-    $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+  $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
 
-    $firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    ->create();
+  $firebase = (new Factory)
+  ->withServiceAccount($serviceAccount)
+  ->create();
 
-    $database = $firebase->getDatabase();
+  $database = $firebase->getDatabase();
 
-    $reference = $database->getReference('/official_duty_roster');
+  $reference = $database->getReference('/official_duty_roster');
     // $total_user = $reference->getSnapshot()->numChildren();
-      $data1 = $reference->getSnapshot()->getValue();
-      $data2= $reference->getSnapshot()->numChildren();
+  $data1 = $reference->getSnapshot()->getValue();
+  $data2= $reference->getSnapshot()->numChildren();
 
 
-    $output = '';
-    if ($data2 > 0) {
-      foreach ($data1 as $key => $data) {
-        $output .= '<tr>
-                      <td>'.$data1[$key]['Name'].'</td>
-                      <td>'.$data1[$key]['Role'].'</td>
-                      <td>'.$data1[$key]['L'].'</td>
-                      <td>'.$data1[$key]['PH'].'</td>
-                      <td>'.$data1[$key]['MON'].'</td>
-                      <td>'.$data1[$key]['TUE'].'</td>
-                      <td>'.$data1[$key]['WED'].'</td>
-                      <td>'.$data1[$key]['THU'].'</td>
-                      <td>'.$data1[$key]['FRI'].'</td>
-                      <td>'.$data1[$key]['SAT'].'</td>
-                      <td>'.$data1[$key]['SUN'].'</td>
-                    </tr>'; 
-      }
-      
-    }else{
+  $output = '';
+  if ($data2 > 0) {
+    foreach ($data1 as $key => $data) {
       $output .= '<tr>
-                    <td colspan="3">No Data Found</td>
-                  </tr>';
-      }
-    return $output;
+      <td>'.$data1[$key]['Name'].'</td>
+      <td>'.$data1[$key]['Role'].'</td>
+      <td>'.$data1[$key]['L'].'</td>
+      <td>'.$data1[$key]['PH'].'</td>
+      <td>'.$data1[$key]['MON'].'</td>
+      <td>'.$data1[$key]['TUE'].'</td>
+      <td>'.$data1[$key]['WED'].'</td>
+      <td>'.$data1[$key]['THU'].'</td>
+      <td>'.$data1[$key]['FRI'].'</td>
+      <td>'.$data1[$key]['SAT'].'</td>
+      <td>'.$data1[$key]['SUN'].'</td>
+      </tr>'; 
+    }
 
+  }else{
+    $output .= '<tr>
+    <td colspan="3">No Data Found</td>
+    </tr>';
   }
+  return $output;
+
+}
 
   public function generate_pdf(){
   $firstdate = date("d/m/Y", strtotime("Next Monday"));
@@ -120,8 +120,8 @@ class scheduler extends CI_Controller {
               <tr>
                 <th width = "14.5%">Name</th>
                 <th>Role</th>
-                <th width= "7%">L</th>
-                <th width= "7%">PH</th>
+                <th width= "7%">L / 20</th>
+                <th width= "7%">PH / 19</th>
                 <th>MON</th>
                 <th>TUE</th>
                 <th>WED</th>
@@ -166,13 +166,30 @@ class scheduler extends CI_Controller {
 
 		public function calendar()
 	{
-    $this->load->model("main_model");
-    $data["fetch_calendar_data"] = $this->main_model->fetch_calendar_data();
-		$this->load->view('scheduler_calendar',$data);
+    
+		$this->load->view('scheduler_calendar');
 	}
 
   public function getcalendarevents(){
-    $this->load->model("calendar_model");
+    
+    $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
+
+    $firebase = (new Factory)
+    ->withServiceAccount($serviceAccount)
+    ->create();
+
+    $database = $firebase->getDatabase();
+
+    $calendar_reference = $database->getReference('/official_duty_roster')->getSnapshot()->getValue();
+
+    // $firstdate = date("d/m/Y", strtotime("Next Monday"));
+    // $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
+
+    foreach ($calendar_reference as $key => $value) {
+      
+    }
+
+
 
     $events = array(
 
@@ -192,7 +209,6 @@ class scheduler extends CI_Controller {
 
               );
 
-    // $events = $this->calendar_model->get_all_events();
     echo json_encode($events);
   }
 
@@ -200,14 +216,6 @@ class scheduler extends CI_Controller {
 		public function staff()
 	{
     
-
-
- 
-
-   
-
-   
-
 		$this->load->view('scheduler_staff');
 
 	}
@@ -304,7 +312,7 @@ public function update_scheduler_form_validation()
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $all_user[$key]['userEmail'];
+                $sub_array[] = $all_user[$key]['userFullName'];
                 $sub_array[] = $all_user[$key]['userStaffID'];
                 $sub_array[] = $all_user[$key]['userAge'];
                 $sub_array[] = $all_user[$key]['userHandphone'];
