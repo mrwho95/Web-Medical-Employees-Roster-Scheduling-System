@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="refresh" content="900;url= sessionexpired" />
+  <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
   <title>Department</title>
 
@@ -209,8 +210,19 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">  
-                <label>Name</label>  
-                <input type="text" name="dname" id="dname" class="form-control" placeholder="Department Name" />  
+                <label>Selcet Department:</label>  
+                <select class="form-control" name="dname" id="dname">
+                  <option>Critical Care</option>
+                  <option>Accident and Emergency</option>
+                  <option>Anaesthetics</option>
+                  <option>Cardiology</option>
+                  <option>General Surgery</option>
+                  <option>Nurition and Dietetics</option>
+                  <option>Occupational therapy</option>
+                  <option>Physiotherapy</option>
+                  <option>Pharmacy</option>
+                  <option>Urology</option>
+                </select>  
                 <br />  
                 <label>Unit</label>  
                 <input type="text" name="unit" id="unit" class="form-control" placeholder="Department Unit" />  
@@ -239,9 +251,20 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">  
-                <label>Name</label>  
-                <input type="text" name="dname" id="Editdname" class="form-control" placeholder="Department Name" />  
-                <br />  
+                <label>Select Department:</label>  
+                <select class="form-control" name="dname" id="Editdname">
+                  <option>Critical Care</option>
+                  <option>Accident and Emergency</option>
+                  <option>Anaesthetics</option>
+                  <option>Cardiology</option>
+                  <option>General Surgery</option>
+                  <option>Nurition and Dietetics</option>
+                  <option>Occupational therapy</option>
+                  <option>Physiotherapy</option>
+                  <option>Pharmacy</option>
+                  <option>Urology</option>
+                </select>
+                <br/>    
                 <label>Unit</label>  
                 <input type="text" name="unit" id="Editunit" class="form-control" placeholder="Department Unit" />  
                 <br />
@@ -361,34 +384,34 @@
    });
 
    //Edit department Submission
-  $(document).on('submit', '#department_Editform', function(event){  
-   event.preventDefault();  
-   var DName = $('#Editdname').val();  
-   var Unit = $('#Editunit').val();  
-   var Manager_Name = $('#Editmanager_name').val();
+   $(document).on('submit', '#department_Editform', function(event){  
+     event.preventDefault();  
+     var DName = $('#Editdname').val();  
+     var Unit = $('#Editunit').val();  
+     var Manager_Name = $('#Editmanager_name').val();
 
-   if(DName != '' && Unit != '' && Manager_Name != '')
-   {  
-    $.ajax({  
-     url:"<?php echo base_url() . 'admin2/update_department_action'?>",  
-     method:'POST',  
-     data:new FormData(this),  
-     contentType:false,  
-     processData:false,  
-     success:function(data)  
+     if(DName != '' && Unit != '' && Manager_Name != '')
      {  
-      alert(data);  
-      $('#department_Editform')[0].reset();  
-      $('#departmentEditModal').modal('hide');  
-      dataTable.ajax.reload();  
+      $.ajax({  
+       url:"<?php echo base_url() . 'admin2/update_department_action'?>",  
+       method:'POST',  
+       data:new FormData(this),  
+       contentType:false,  
+       processData:false,  
+       success:function(data)  
+       {  
+        alert(data);  
+        $('#department_Editform')[0].reset();  
+        $('#departmentEditModal').modal('hide');  
+        dataTable.ajax.reload();  
+      }  
+    });  
     }  
-  });  
-  }  
-  else  
-  {  
-    alert("Bother Fields are Required");  
-  }  
-}); 
+    else  
+    {  
+      alert("Bother Fields are Required");  
+    }  
+  }); 
 
   //delete department
   $(document).on('click', '.delete', function(){  

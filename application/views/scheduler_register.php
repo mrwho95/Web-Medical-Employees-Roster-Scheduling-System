@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
     <title>Register an account</title>
 
@@ -30,11 +31,17 @@
         <h1 style="top: 50px;">The Scheduler</h1>
     </div>
     <div class="container">
-      <div class="card card-register mx-auto" style="margin-top: 15%;">
+      <div class="card card-register mx-auto" style="margin-top: 12%;">
         <div class="card-header">Register a Scheduler Account</div>
         <div class="card-body">
           <form action="<?php echo base_url()?>Registration/form_validation" method="post">
-            <?php if($error = $this->session->flashdata('success_msg')): ?>
+          <?php if($error = $this->session->flashdata('duplicate_user_msg')): ?>
+          <div class="alert alert-danger alert-dismissible" role = "alert">
+            <button type="button" class="close" data-dismiss= "alert" aria-label = "close"><span aria-hidden="true">&times;</span></button>
+            <strong>Failed!</strong> <?= $error?>
+          </div>
+        <?php endif; ?>
+          <?php if($error = $this->session->flashdata('success_msg')): ?>
           <div class="alert alert-success alert-dismissible" role = "alert">
             <button type="button" class="close" data-dismiss= "alert" aria-label = "close"><span aria-hidden="true">&times;</span></button>
             <strong>Success!</strong> <?= $error?>
@@ -75,9 +82,9 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text" id="department" class="form-control" placeholder="Department" name="department" >
-                    <label for="department">Department:</label>
-                    <span class="text-danger"><?php echo form_error("department")?></span>
+                    <input type="tel" id="phonenumber" class="form-control" placeholder="Phone Number" name="phonenumber" >
+                    <label for="phonenumber">(+60)Phone Number:</label>
+                    <span class="text-danger"><?php echo form_error("phonenumber")?></span>
                   </div>
                 </div>
               </div>
@@ -87,7 +94,7 @@
                 <div class="col-md-6">
                   <div class="form-label-group">
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="inputPassword">
-                    <label for="inputPassword">Password:</label>
+                    <label for="inputPassword">Password: *minimum 5 charaters</label>
                     <span class="text-danger"><?php echo form_error("inputPassword")?></span>
                   </div>
                 </div>
@@ -97,6 +104,40 @@
                     <label for="ConfirmPassword">Confirm Password:</label>
                      <span class="text-danger"><?php echo form_error("confirmPassword")?></span>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <select class="form-control" name="department" id="department">
+                    <option selected disabled>Select Department:</option>
+                    <option>Critical Care</option>
+                    <option>Accident and Emergency</option>
+                    <option>Anaesthetics</option>
+                    <option>Cardiology</option>
+                    <option>General Surgery</option>
+                    <option>Nurition and Dietetics</option>
+                    <option>Occupational therapy</option>
+                    <option>Physiotherapy</option>
+                    <option>Pharmacy</option>
+                    <option>Urology</option>
+                  </select>
+                  <span class="text-danger"><?php echo form_error("department")?></span>  
+                </div>
+                <div class="col-md-6">
+                   <select class="form-control" name="hospital" id="hospital">
+                    <option selected disabled> Select Hospital</option>
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>
+                  <span class="text-danger"><?php echo form_error("hospital")?></span>
                 </div>
               </div>
             </div>

@@ -71,13 +71,13 @@ class scheduler extends CI_Controller {
       <td>'.$data1[$key]['Role'].'</td>
       <td>'.$data1[$key]['L'].'</td>
       <td>'.$data1[$key]['PH'].'</td>
-      <td>'.$data1[$key]['MON'].'</td>
-      <td>'.$data1[$key]['TUE'].'</td>
-      <td>'.$data1[$key]['WED'].'</td>
-      <td>'.$data1[$key]['THU'].'</td>
-      <td>'.$data1[$key]['FRI'].'</td>
-      <td>'.$data1[$key]['SAT'].'</td>
-      <td>'.$data1[$key]['SUN'].'</td>
+      <td>'.substr($data1[$key]['MON'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['TUE'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['WED'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['THU'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['FRI'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['SAT'], 0,-11).'</td>
+      <td>'.substr($data1[$key]['SUN'], 0,-11).'</td>
       </tr>'; 
     }
 
@@ -254,7 +254,8 @@ public function update_scheduler_form_validation()
         "Password" =>$this->input->post("inputPassword"),
         "Hospital" =>$this->input->post("hospital"),
         "Phone_Number" =>$this->input->post("phonenumber"),
-        "Department" =>$this->input->post("department")
+        "Department" =>$this->input->post("department"),
+        "Gender" => $this->input->post("gender")
         );
 
         $this->load->model('main_model');

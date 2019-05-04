@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="refresh" content="900;url= sessionexpired" />
+  <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
   <title>Clinician</title>
 
@@ -239,14 +240,37 @@
                   <label>Email Address</label>  
                   <input type="email" name="inputEmail" id="inputEmail" class="form-control" readonly="" placeholder="Email Address" />  
                   <br />
-                  <label>Position</label>  
-                  <input type="text" name="position" id="position" placeholder="Position" class="form-control" />  
+                  <label>Select Position:</label>
+                  <select class="form-control" name="position" id="position">
+                    <option>Nurse</option>
+                    <option>Doctor</option>
+                  </select>
                   <br />   
-                  <label>Department</label>  
-                  <input type="text" name="department" id="department" placeholder="Department" class="form-control" />  
+                  <label>Select Department:</label>
+                  <select class="form-control" name="department" id="department">
+                    <option>Critical Care</option>
+                    <option>Accident and Emergency</option>
+                    <option>Anaesthetics</option>
+                    <option>Cardiology</option>
+                    <option>General Surgery</option>
+                    <option>Nurition and Dietetics</option>
+                    <option>Occupational therapy</option>
+                    <option>Physiotherapy</option>
+                    <option>Pharmacy</option>
+                    <option>Urology</option>
+                  </select>  
                   <br />  
-                  <label>Hospital</label>  
-                  <input type="text" name="hospital" id="hospital" class="form-control" placeholder="Hospital" />  
+                  <label>Select Hospital:</label>
+                  <select class="form-control" name="hospital" id="hospital">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>   
                   <br />    
                   <input type="text" name="staffID" id="staffID" class="form-control" placeholder="Staff ID" style="visibility: hidden;"  /> 
                   <input type="text" name="clinicianID" id="clinicianID" class="form-control" placeholder="Clinician ID" style="visibility: hidden;"  />         
@@ -276,7 +300,7 @@
                   <br />
                   <label>Staff ID</label>  
                   <input type="text" name="staffID" id="addstaffID" class="form-control" placeholder="Staff ID"  /><br/>
-                  <label>Password</label>  
+                  <label>Password *minimum 6 charaters</label>  
                   <input type="password" name="inputpassword" id="addinputpassword" placeholder="Password" class="form-control" />  
                   <br />
                   <label>Age</label>  
@@ -291,14 +315,37 @@
                   <label>Email Address</label>  
                   <input type="email" name="inputEmail" id="addinputEmail" class="form-control" placeholder="Email Address" />  
                   <br />
-                  <label>Position</label>  
-                  <input type="text" name="position" id="addposition" placeholder="Position" class="form-control" />  
+                  <label>Select Position:</label>
+                  <select class="form-control" name="position" id="addposition">
+                    <option>Nurse</option>
+                    <option>Doctor</option>
+                  </select>
                   <br />   
-                  <label>Department</label>  
-                  <input type="text" name="department" id="adddepartment" placeholder="Department" class="form-control" />  
+                  <label>Select Department:</label>
+                  <select class="form-control" name="department" id="adddepartment">
+                    <option>Critical Care</option>
+                    <option>Accident and Emergency</option>
+                    <option>Anaesthetics</option>
+                    <option>Cardiology</option>
+                    <option>General Surgery</option>
+                    <option>Nurition and Dietetics</option>
+                    <option>Occupational therapy</option>
+                    <option>Physiotherapy</option>
+                    <option>Pharmacy</option>
+                    <option>Urology</option>
+                  </select>  
                   <br />  
-                  <label>Hospital</label>  
-                  <input type="text" name="hospital" id="addhospital" class="form-control" placeholder="Hospital" />  
+                  <label>Select Hospital:</label>
+                  <select class="form-control" name="hospital" id="addhospital">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>   
                   <br />
                 </div>
                 <div class="modal-footer">  

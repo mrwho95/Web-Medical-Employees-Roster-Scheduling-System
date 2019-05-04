@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="refresh" content="900;url= sessionexpired" />
+    <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
     <title>Scheduler</title>
 

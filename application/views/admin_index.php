@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="refresh" content="600;url= sessionexpired" />
+  <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
   <title>Administrator</title>
 
@@ -228,14 +229,17 @@
                   <label>Full Name</label>  
                   <input type="text" name="fullname" id="fullname" class="form-control" placeholder="Full Name" />  
                   <br />  
-                  <label>Gender</label>  
-                  <input type="text" name="gender" id="gender" class="form-control" placeholder="Gender" />  
-                  <br />
                   <label>Scheduler ID</label>  
                   <input type="text" name="schedulerID" id="schedulerID" class="form-control" placeholder="Scheduler ID" />  
                   <br />  
-                  <label>Password</label>  
+                  <label>Password *minimum 5 charaters</label>  
                   <input type="password" name="inputpassword" id="inputpassword" placeholder="Password" class="form-control" />  
+                  <br />
+                   <label>Select Gender:</label>  
+                  <select class="form-control" name="gender" id="gender">
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
                   <br /> 
                   <label>(+60)Phone Number</label>  
                   <input type="tel" name="phonenumber" id="phonenumber" class="form-control" placeholder="Phone Number" />  
@@ -243,12 +247,32 @@
                   <label>Email Address</label>  
                   <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email Address" />  
                   <br />   
-                  <label>Department</label>  
-                  <input type="text" name="department" id="department" placeholder="Department" class="form-control" />  
+                  <label>Select Department:</label>
+                  <select class="form-control" name="department" id="department">
+                    <option>Critical Care</option>
+                    <option>Accident and Emergency</option>
+                    <option>Anaesthetics</option>
+                    <option>Cardiology</option>
+                    <option>General Surgery</option>
+                    <option>Nurition and Dietetics</option>
+                    <option>Occupational therapy</option>
+                    <option>Physiotherapy</option>
+                    <option>Pharmacy</option>
+                    <option>Urology</option>
+                  </select>  
                   <br />  
-                  <label>Hospital</label>  
-                  <input type="text" name="hospital" id="hospital" class="form-control" placeholder="Hospital" />  
-                  <br /> 
+                  <label>Select Hospital:</label>
+                  <select class="form-control" name="hospital" id="hospital">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>   
+                  <br />
                 </div>  
                 <div class="modal-footer">  
                   <input type="submit" id="actionAdd" name="action" class="btn btn-success" value="Add" />
@@ -273,21 +297,44 @@
                   <label>Full Name</label>  
                   <input type="text" name="Editfullname" id="Editfullname" class="form-control" placeholder="Full Name" />  
                   <br />  
-                  <label>Gender</label>  
-                  <input type="text" name="Editgender" id="Editgender" class="form-control" placeholder="Gender" />  
-                  <br />
+                  <label>Select Gender:</label>  
+                  <select class="form-control" name="Editgender" id="Editgender">
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                  <br /> 
                   <label>(+60)Phone Number</label>  
                   <input type="tel" name="Editphonenumber" id="Editphonenumber" class="form-control" placeholder="Phone Number" />  
                   <br />  
                   <label>Email Address</label>  
                   <input type="email" name="EditinputEmail" id="EditinputEmail" class="form-control" readonly="" placeholder="Email Address" />  
                   <br />   
-                  <label>Department</label>  
-                  <input type="text" name="Editdepartment" id="Editdepartment" placeholder="Department" class="form-control" />  
+                 <label>Select Department:</label>
+                  <select class="form-control" name="Editdepartment" id="Editdepartment">
+                    <option>Critical Care</option>
+                    <option>Accident and Emergency</option>
+                    <option>Anaesthetics</option>
+                    <option>Cardiology</option>
+                    <option>General Surgery</option>
+                    <option>Nurition and Dietetics</option>
+                    <option>Occupational therapy</option>
+                    <option>Physiotherapy</option>
+                    <option>Pharmacy</option>
+                    <option>Urology</option>
+                  </select>  
                   <br />  
-                  <label>Hospital</label>  
-                  <input type="text" name="Edithospital" id="Edithospital" class="form-control" placeholder="Hospital" />  
-                  <br /> 
+                  <label>Select Hospital:</label>
+                  <select class="form-control" name="Edithospital" id="Edithospital">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>   
+                  <br />
                 </div>  
                 <div class="modal-footer">  
                   <input type="submit" class="btn btn-success" name="action" id="actionUpdate" />

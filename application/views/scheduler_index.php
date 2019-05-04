@@ -7,13 +7,14 @@
 <html lang="en">
 
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="refresh" content="900;url= sessionexpired" />
+
+    <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
     <title>Timetable</title>
 
@@ -178,13 +179,13 @@
                       <td><?php echo $fetch_clinician_data[$key]['Role'] ?></td>
                       <td><?php echo $fetch_clinician_data[$key]['L'] ?></td>
                       <td><?php echo $fetch_clinician_data[$key]['PH'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['MON'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['TUE'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['WED'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['THU'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['FRI'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['SAT'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['SUN'] ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['MON'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['TUE'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['WED'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['THU'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['FRI'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['SAT'], 0,-11) ?></td>
+                      <td><?php echo substr($fetch_clinician_data[$key]['SUN'], 0,-11) ?></td>
                     </tr>
                     <?php 
                   }

@@ -9,6 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="refresh" content="900;url= sessionexpired" />
+  <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
   <title>Hospital</title>
 
@@ -132,8 +133,8 @@
                     <thead>
                       <tr>
                         <th>Name</th>
-                        <th>Location</th>
                         <th>Type</th>
+                        <th>Location</th>
                         <th>Edit</th>
                         <th>Delete</th>
                       </tr>
@@ -141,8 +142,8 @@
                     <tfoot>
                       <tr>
                         <th>Name</th>
-                        <th>Location</th>
                         <th>Type</th>
+                        <th>Location</th>
                         <th>Edit</th>
                         <th>Delete</th>
                       </tr>
@@ -209,15 +210,27 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">  
-                <label>Name</label>  
-                <input type="text" name="hname" id="hname" class="form-control" placeholder="Hospital Name" />  
-                <br />  
+                <label>Select Hospital:</label>  
+                <select class="form-control" name="hname" id="hname">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>    
+                <br />
+                <label>Select Hospital Type:</label>  
+                <select class="form-control" name="hospital_type" id="hospital_type">
+                    <option>Government</option>
+                    <option>Private</option>
+                  </select>  
+                <br />   
                 <label>Location</label>  
                 <input type="text" name="location" id="location" class="form-control" placeholder="Hospital Location" />  
                 <br />
-                <label>Type</label>  
-                <input type="text" name="hospital_type" id="hospital_type" class="form-control" placeholder="Hospital Type" />  
-                <br />  
               </div>  
               <div class="modal-footer">  
                 <input type="hidden" name="user_id" id="user_id">
@@ -239,15 +252,27 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">  
-                <label>Name</label>  
-                <input type="text" name="hname" id="Edithname" class="form-control" placeholder="Hospital Name" />  
-                <br />  
+                <label>Select Hospital:</label>  
+                <select class="form-control" name="hname" id="Edithname">
+                    <option>Pusat Rawatan Warga UMS</option>
+                    <option>Queen Elizabeth Hospital I</option>
+                    <option>Queen Elizabeth Hospital II</option>
+                    <option>Rafflesia Medical Centre</option>
+                    <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                    <option>KPJ Damai Specialist Hospital</option>
+                    <option>Gleneagles Kota Kinabalu</option>
+                    <option>Jesselton Medical Centre Kota Kinabalu</option>
+                  </select>      
+                <br />
+                <label>Select Hospital Type:</label>  
+                <select class="form-control" name="hospital_type" id="Edithospital_type">
+                    <option>Government</option>
+                    <option>Private</option>
+                  </select>  
+                <br />    
                 <label>Location</label>  
                 <input type="text" name="location" id="Editlocation" class="form-control" placeholder="Hospital Location" />  
                 <br />
-                <label>Type</label>  
-                <input type="text" name="hospital_type" id="Edithospital_type" class="form-control" placeholder="Hospital Type" />  
-                <br />  
               </div>  
               <div class="modal-footer">  
                 <input type="hidden" name="user_id" id="Edituser_id">

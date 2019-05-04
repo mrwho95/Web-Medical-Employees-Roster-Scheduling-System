@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="refresh" content="900;url= sessionexpired" />
+    <link rel="icon" href="<?php echo base_url(); ?>assets/photo/roster_icon.png"  type="image/ico">
 
     <title>Administrator Profile</title>
 
@@ -164,7 +165,9 @@
                 } ?>     
                 </div>
                 <div class="col-md-6 form-group">
-
+                  Hospital: <?php foreach($fetch_data->result() as $row){
+                echo $row->Hospital;
+                } ?>
                 </div>
               </div>
             </div>
@@ -243,6 +246,24 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-12">
+                <select class="form-control" name="hospital" id="hospital">
+                  <option selected disabled> Select Hospital</option>
+                  <option>Pusat Rawatan Warga UMS</option>
+                  <option>Queen Elizabeth Hospital I</option>
+                  <option>Queen Elizabeth Hospital II</option>
+                  <option>Rafflesia Medical Centre</option>
+                  <option>Hospital Wanita Dan Kanak-Kanak Sabah</option>
+                  <option>KPJ Damai Specialist Hospital</option>
+                  <option>Gleneagles Kota Kinabalu</option>
+                  <option>Jesselton Medical Centre Kota Kinabalu</option>
+                </select>
+                <span class="text-danger"><?php echo form_error("hospital")?></span>
+              </div>
+            </div>
+          </div>
             <input class="btn btn-primary btn-block" type="submit" name="update" value="Update">
             <?php 
             if ($this->uri->segment(2) == "inserted") {

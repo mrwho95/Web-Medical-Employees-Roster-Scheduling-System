@@ -60,6 +60,7 @@ class admin extends CI_Controller
       $this->form_validation->set_rules("adminID","Admin ID",'required');
       $this->form_validation->set_rules("inputEmail","Email",'required');
       $this->form_validation->set_rules("phonenumber","Phone Number",'required');
+      $this->form_validation->set_rules("hospital","Hospital",'required');
       $this->form_validation->set_rules("inputPassword","Password",'required|min_length[5]');
       $this->form_validation->set_rules("confirm_password","Confirm Password",'required|min_length[5]|matches[inputPassword]');
 
@@ -70,7 +71,8 @@ class admin extends CI_Controller
         "AdminID" =>$this->input->post("adminID"),
         "Email" =>$this->input->post("inputEmail"),
         "Phone_Number" =>$this->input->post("phonenumber"),
-        "Password" =>$this->input->post("inputPassword")
+        "Password" =>$this->input->post("inputPassword"),
+        "Hospital" =>$this->input->post("hospital")
         );
 
       $this->load->model('main_model');
@@ -81,7 +83,8 @@ class admin extends CI_Controller
           'admin_ID' => $data['AdminID'],
           'admin_email' => $data['Email'],
           'admin_phonenumber' => $data['Phone_Number'],
-          'admin_password' => $data['Password']
+          'admin_password' => $data['Password'],
+          'admin_hospital' => $data['Hospital'],
 
         );
         
@@ -217,9 +220,9 @@ class admin extends CI_Controller
            {  
                 $sub_array = array();  
                 /*$sub_array[] = '<img src="'.base_url().'upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" />';  */
-                $sub_array[] = $row->Name;  
+                $sub_array[] = $row->Name;
+                $sub_array[] = $row->Type;   
                 $sub_array[] = $row->Location;
-                $sub_array[] = $row->Type; 
                 $sub_array[] = '<button type="button" name="update" id="'.$row->id.'" class="btn btn-warning btn-xs update">Update</button>';  
                 $sub_array[] = '<button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button>';  
                 $data[] = $sub_array;  

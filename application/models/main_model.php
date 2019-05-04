@@ -15,6 +15,30 @@ class main_model extends CI_Model
 		return $num;
 	}
 
+	public function check_exist_scheduler($schedulerID){
+		$this->db->where('SchedulerID', $schedulerID);
+		// $this->db->where('Email', $email);
+		$this->db->from('scheduler');
+		$query = $this->db->get();
+		if ($query->num_rows()) {
+			return $query->result();
+		}else{
+			return $query->result();
+		}
+	}
+
+	public function check_exist_admin($adminID){
+		$this->db->where('AdminID', $adminID);
+		// $this->db->where('Email', $email);
+		$this->db->from('admin');
+		$query = $this->db->get();
+		if ($query->num_rows()) {
+			return $query->result();
+		}else{
+			return $query->result();
+		}
+	}
+
 	//This function for showing data from database
 	// public function show_scheduler_details($schedulerID){
 	// 	$this->db->where("SchedulerID", $schedulerID);
