@@ -245,6 +245,9 @@ class scheduling2 extends CI_Controller
             $database->getReference() // this is the root reference
             ->update($updates);
 
+            // $medical_table = $database->getReference('medical_table/'.$user_id);
+            // $medical_table->remove();
+
             
 
             $this->session->set_flashdata('success_update_msg', 'Updated Duty Table Successful.');

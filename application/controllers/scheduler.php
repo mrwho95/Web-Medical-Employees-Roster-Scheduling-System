@@ -170,47 +170,7 @@ class scheduler extends CI_Controller {
 		$this->load->view('scheduler_calendar');
 	}
 
-  public function getcalendarevents(){
-    
-    $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
-
-    $firebase = (new Factory)
-    ->withServiceAccount($serviceAccount)
-    ->create();
-
-    $database = $firebase->getDatabase();
-
-    $calendar_reference = $database->getReference('/official_duty_roster')->getSnapshot()->getValue();
-
-    // $firstdate = date("d/m/Y", strtotime("Next Monday"));
-    // $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
-
-    foreach ($calendar_reference as $key => $value) {
-      
-    }
-
-
-
-    $events = array(
-
-                array(
-                   'id' => 2,
-                  'title' => 'AM Dennis Ngu Kee Hou',
-                  'start' => '2019-4-15',
-                   'end' => '2019-4-17',
-                   'allDay' => 'false'
-                  ),
-                array(
-                   'id' => 1,
-                  'title' => 'AM Dennis Ngu Kee Hou',
-                  'start'=> '2019-4-17',
-                   'end' => '2019-4-30'
-                  ),
-
-              );
-
-    echo json_encode($events);
-  }
+  
 
 
 		public function staff()

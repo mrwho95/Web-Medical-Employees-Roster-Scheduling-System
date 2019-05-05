@@ -349,15 +349,11 @@ public function delete_row(){
 }
 
 public function generate_duty_roster(){
-	// $this->load->model('scheduling_model');
-	// $this->scheduling_model->generate_roster_table();
-
-	// $this->scheduling_model->generate_new_notification_message();
-	// $this->scheduling_model->auto_delete_notification();
 
   $firstdate = date("d/m/Y", strtotime("Next Monday"));
   $lastdate = date("d/m/Y", strtotime("Next Monday + 6 days"));
   $date = $firstdate." - ".$lastdate;
+
 
   $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
 
@@ -407,7 +403,121 @@ public function generate_duty_roster(){
   ];
     $database->getReference() // this is the root reference
     ->update($updates);
-  }
+
+    $day1 = substr($duty_table_reference[$key]['MON'], 2);
+    $nday1 = str_replace('/', '-', $day1 );
+    $newday1 = date("Y-m-d", strtotime($nday1));
+
+    $day2 = substr($duty_table_reference[$key]['TUE'], 2);
+    $nday2 = str_replace('/', '-', $day2 );
+    $newday2 = date("Y-m-d", strtotime($nday2));
+
+    $day3 = substr($duty_table_reference[$key]['WED'], 2);
+    $nday3 = str_replace('/', '-', $day3 );
+    $newday3 = date("Y-m-d", strtotime($nday3));
+
+    $day4 = substr($duty_table_reference[$key]['THU'], 2);
+    $nday4 = str_replace('/', '-', $day4 );
+    $newday4 = date("Y-m-d", strtotime($nday4));
+
+    $day5 = substr($duty_table_reference[$key]['FRI'], 2);
+    $nday5 = str_replace('/', '-', $day5 );
+    $newday5 = date("Y-m-d", strtotime($nday5));
+
+    $day6 = substr($duty_table_reference[$key]['SAT'], 2);
+    $nday6 = str_replace('/', '-', $day6 );
+    $newday6 = date("Y-m-d", strtotime($nday6));
+
+    $day7 = substr($duty_table_reference[$key]['SUN'], 2);
+    $nday7 = str_replace('/', '-', $day7 );
+    $newday7 = date("Y-m-d", strtotime($nday7));
+
+    $postData1 = [
+      'title' => substr($duty_table_reference[$key]['MON'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday1,
+    ];
+    $updates1 = [
+      'calendar/'.$key.'/MON' => $postData1,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates1);
+
+    $postData2 = [
+      'title' => substr($duty_table_reference[$key]['TUE'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday2,
+    ];
+    $updates2 = [
+      'calendar/'.$key.'/TUE' => $postData2,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates2);
+
+    $postData3 = [
+      'title' => substr($duty_table_reference[$key]['WED'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday3,
+    ];
+    $updates3 = [
+      'calendar/'.$key.'/WED' => $postData3,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates3);
+
+    $postData4 = [
+      'title' => substr($duty_table_reference[$key]['THU'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday4,
+    ];
+    $updates4 = [
+      'calendar/'.$key.'/THU' => $postData4,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates4);
+
+    $postData5 = [
+      'title' => substr($duty_table_reference[$key]['FRI'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday5,
+    ];
+    $updates5 = [
+      'calendar/'.$key.'/FRI' => $postData5,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates5);
+
+    $postData6 = [
+      'title' => substr($duty_table_reference[$key]['SAT'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday6,
+    ];
+    $updates6 = [
+      'calendar/'.$key.'/SAT' => $postData6,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates6);
+
+    $postData7 = [
+      'title' => substr($duty_table_reference[$key]['SUN'], 0,2).' '.$duty_table_reference[$key]['Name'],
+      'start' => $newday7,
+    ];
+    $updates7 = [
+      'calendar/'.$key.'/SUN' => $postData7,
+
+    ];
+    $database->getReference() // this is the root reference
+    ->update($updates7);
+
+  } //for each
+
+
+
+ //     $String = substr($duty_table_reference[$key]['MON'],0,2).' '.$duty_table_reference[$key]['Name'];
+ //     $String2 = substr($duty_table_reference[$key]['MON'], 2);
+ // var_dump($String2);
+
+  
 
   $this->send_new_duty_roster_message_and_notification();
 
