@@ -288,7 +288,7 @@ if ($position == $Nurse) {
     $updates = ['duty_table/'.$clinician_data.'' => $postData,];
     $database->getReference() ->update($updates);
   }
-}elseif ($Shift_Preference == '') {
+}elseif ($Shift_Preference == 'No status') {
   $num = rand(1,7);
   if ($num == 1) {
     $postData = ['user_key' => $clinician_data,'Name' => $user_name,'Role' =>$position,'MON' =>"AM $Monday",'TUE' => "AM $Tuesday",'WED' => "PM $Wednesday",'THU' => "PM $Thursday",'FRI' =>"ND $Friday",'SAT' =>"ND $Saturday",'SUN' =>"- $Sunday",];
@@ -322,6 +322,14 @@ if ($position == $Nurse) {
 }
 }
 
+  $updates = [
+    'Shift/Shift Preference/'.$clinician_data => 'No status',
+    
+  ];
+            $database->getReference() // this is the root reference
+            ->update($updates);
+
+
 
 }
 
@@ -330,7 +338,6 @@ public function delete_row(){
 	// $this->load->model('scheduling_model');
 	// $this->scheduling_model->delete_last_row();
   $user_id = $this->input->post('Delete');
-
 
 
   $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');

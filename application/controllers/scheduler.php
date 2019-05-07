@@ -118,7 +118,7 @@ class scheduler extends CI_Controller {
       <h3 align ="center">'.$firstdate.' - '.$lastdate.'</h3>
        <table border = "1" cellspacing="0" cellpadding ="5">
               <tr>
-                <th width = "14.5%">Name</th>
+                <th width = "14%">Name</th>
                 <th>Role</th>
                 <th width= "7%">L / 20</th>
                 <th width= "7%">PH / 19</th>

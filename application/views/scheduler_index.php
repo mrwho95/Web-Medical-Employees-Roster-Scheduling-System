@@ -137,7 +137,7 @@
               </tr>
               <tr>
                 <th>Name</th>
-                <th>Role</th>
+                <th>Position</th>
                 <th>L / 20</th>
                 <th>PH / 19</th>
                 <th>MON</th>
