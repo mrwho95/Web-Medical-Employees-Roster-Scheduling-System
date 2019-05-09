@@ -351,6 +351,8 @@ public function delete_row(){
   $reference = $database->getReference('duty_table/'.$user_id);
   $reference->remove();
 
+
+
   $this->session->set_flashdata('success_msg_delete_last_row', 'Delete Successful.');
   return redirect('scheduling/jobplanning');
 }
@@ -613,8 +615,8 @@ public function send_new_duty_roster_message_and_notification(){
 
             $reference = $database->getReference('duty_table');
             $reference->remove();
-    // $reference2 = $database->getReference('official_duty_roster');
-    // $reference2->remove();
+            $reference2 = $database->getReference('official_duty_roster');
+            $reference2->remove();
             $this->session->set_flashdata('success_msg_clear_content', 'Clear All Duty Roster Data.');
             return redirect('scheduling/jobplanning');
 

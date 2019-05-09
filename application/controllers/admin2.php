@@ -287,6 +287,18 @@ function update_clinician_action(){
   $delete_clinician_all_leave = $database->getReference('Medical Leave/'.$user_id);
   $delete_clinician_all_leave->remove();
 
+  $delete_single_user_calendar = $database->getReference('calendar/'.$user_id);
+  $delete_single_user_calendar->remove();
+
+  $delete_single_user_shift = $database->getReference('Shift/Shift Preference/'.$user_id);
+  $delete_single_user_shift->remove();
+
+  $delete_single_user_duty_table = $database->getReference('duty_table/'.$user_id);
+  $delete_single_user_duty_table->remove();
+
+  $delete_single_official_duty_roster = $database->getReference('official_duty_roster'.$user_id);
+  $delete_single_official_duty_roster->remove();
+
   echo 'Data Deleted';  
 } 
 
