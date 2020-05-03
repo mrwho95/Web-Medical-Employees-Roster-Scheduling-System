@@ -32,10 +32,11 @@ class admin_model extends CI_Model
 		// }
 	} 
 
-	function fetch_admin_data(){
-		$query = $this->db->get("admin");
-		return $query;
-	}
+	// function fetch_admin_data($adminID){
+ //    $this->db->where('AdminID', $adminID);
+	// 	$query = $this->db->get('admin');
+	// 	return $query->row();
+	// }
 
     //Ajax 
     var $table = "scheduler";  

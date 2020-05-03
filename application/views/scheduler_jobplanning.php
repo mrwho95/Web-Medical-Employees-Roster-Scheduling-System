@@ -282,7 +282,7 @@ $Sunday = date("d/m/Y", strtotime("Next Monday + 6 days"));
                           <th>Clinician Cover</th>
                           <th>Status</th>
                           <th>Apply Leave</th>
-                          <th>Fail Leave</th>
+                          <th>Reject Leave</th>
                         </tr>
                       </thead>
                       <tfoot>
@@ -296,7 +296,7 @@ $Sunday = date("d/m/Y", strtotime("Next Monday + 6 days"));
                           <th>Clinician Cover</th>
                           <th>Status</th>
                           <th>Apply Leave</th>
-                          <th>Fail Leave</th>
+                          <th>Reject Leave</th>
                         </tr>
                       </tfoot>
                       <tbody style="text-align: center;">
@@ -320,9 +320,9 @@ $Sunday = date("d/m/Y", strtotime("Next Monday + 6 days"));
 
                             </form></td>
                             <td><form method="post" action="<?php echo base_url()?>scheduling2/Fail_applyleave">
-                              <input type="text" id="invi" style="visibility: hidden;" name="Fail" class="btn btn-warning" value=<?php echo $key  ?>   >
+                              <input type="text" id="invi" style="visibility: hidden;" name="Reject" class="btn btn-warning" value=<?php echo $key  ?>   >
 
-                              <input class="btn btn-danger" type="submit" name="submit" value="Fail">
+                              <input class="btn btn-danger" type="submit" name="submit" value="Reject">
 
                             </form></td>
                           </tr>

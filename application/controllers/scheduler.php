@@ -10,6 +10,7 @@ class scheduler extends CI_Controller {
 
   function __construct(){
     parent::__construct();
+    $this->load->library('session');
     if (!$this->session->userdata('entrance')) 
     {
       redirect('login/index');
@@ -39,10 +40,10 @@ class scheduler extends CI_Controller {
 
    $reference = $database->getReference('/official_duty_roster');
     // $total_user = $reference->getSnapshot()->numChildren();
-   $data["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
-   $data["total_duty_user"]= $reference->getSnapshot()->numChildren();
+   $dataset["fetch_clinician_data"] = $reference->getSnapshot()->getValue();
+   $dataset["total_duty_user"]= $reference->getSnapshot()->numChildren();
 
-   $this->load->view('scheduler_index',$data);
+   $this->load->view('scheduler_index',$dataset);
  }
 
  public function fetch_duty_schedule_pdf(){
@@ -182,7 +183,9 @@ class scheduler extends CI_Controller {
 
 	public function scheduler_details(){
     $this->load->model("main_model");
-    $data["fetch_data"] = $this->main_model->fetch_scheduler_data();
+    $schedulerID = $this->session->userdata('schedulerID');
+    $data["fetch_data"] = $this->main_model->fetch_scheduler_data($schedulerID);
+    $data = json_decode( json_encode($data), true);
 		$this->load->view('scheduler_profile', $data);
 	}
 

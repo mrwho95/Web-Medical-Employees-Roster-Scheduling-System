@@ -60,13 +60,16 @@
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="<?php echo base_url(); ?>assets/#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="<?php echo base_url(); ?>assets/#" data-toggle="dropdown">
             <i class="fas fa-bell fa-fw"></i>
-            <span class="badge badge-danger">9+</span>
+            <span class="label label-pill label-danger count" style="border-radius:10px;" ></span><span class="glyphicon glyphicon-envelope" style="font-size:18px;"></span>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" id="notificationDropdown">
+          </ul>
+<!--           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
             <a class="dropdown-item" href="<?php echo base_url(); ?>assets/#">Action</a>
-          </div>
+          </div> -->
         </li>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="<?php echo base_url(); ?>assets/#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -172,13 +175,14 @@
             <tbody style="text-align: center;">
               <?php 
                 if ($total_duty_user > 0 ) {
-                  foreach ($fetch_clinician_data as $key => $data) {
+                  foreach ($fetch_clinician_data as $key => $value) {
+                    //$fetch_clinician_data[$key] = $value;
                     ?>
                     <tr>
-                      <td><?php echo $fetch_clinician_data[$key]['Name'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['Role'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['L'] ?></td>
-                      <td><?php echo $fetch_clinician_data[$key]['PH'] ?></td>
+                      <td><?php echo $value['Name'] ?></td>
+                      <td><?php echo $value['Role'] ?></td>
+                      <td><?php echo $value['L'] ?></td>
+                      <td><?php echo $value['PH'] ?></td>
                       <td><?php echo substr($fetch_clinician_data[$key]['MON'], 0,-11) ?></td>
                       <td><?php echo substr($fetch_clinician_data[$key]['TUE'], 0,-11) ?></td>
                       <td><?php echo substr($fetch_clinician_data[$key]['WED'], 0,-11) ?></td>
@@ -267,6 +271,37 @@
     <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/demo/chart-area-demo.js"></script>
 
+<script>
+$(document).ready(function(){
+
+  function load_unseen_notification(view = ''){
+    $.ajax({
+      url:"<?php echo base_url(); ?>getNotification/getNotificationFromMobile",
+      method:"POST",
+      data:{view:view},
+      dataType:"json",
+      success:function(data){
+        $('#notificationDropdown').html(data.notification);
+        // if (data.unseen_notification > 0) {
+        //   $('.count').html(data.unseen_notification);
+        // }
+      }
+    });
+  }
+
+  load_unseen_notification();
+console.log("Dataset:", data);
+
+
+});
+
+
+</script>
+
   </body>
 
+
+
+
 </html>
+

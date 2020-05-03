@@ -369,7 +369,7 @@ public function doctor_leave_notification($leavestartdate, $leaveenddate, $user_
 }
 
 public function Fail_applyleave(){
-	$user_id = $this->input->post('Fail');
+	$user_id = $this->input->post('Reject');
 	$serviceAccount = ServiceAccount::fromJsonFile(__DIR__.'/medical_firebase.json');
 
 	$firebase = (new Factory)

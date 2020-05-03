@@ -132,42 +132,43 @@
           <div class="card-body">
             <div class="form-group">
               <div class="form-row">
-                <div class="col-md-6">Name: <?php foreach($fetch_data->result() as $row){
-                echo $row->Name;
-                }  ?>             
+                <div class="col-md-6">Name: 
+                  <?php 
+                      echo $fetch_data['Name'];
+                  ?>             
                 </div>
-                <div class="col-md-6">
-                  Admin ID: <?php foreach($fetch_data->result() as $row){
-                echo $row->AdminID;
-                } ?>     
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-row">
-                <div class="col-md-6">
-                 Email: <?php foreach($fetch_data->result() as $row){
-                echo $row->Email;
-                } ?>     
-                </div>
-                <div class="col-md-6">
-                  Phone Number: <?php foreach($fetch_data->result() as $row){
-                echo $row->Phone_Number;
-                } ?>     
+                <div class="col-md-6">Admin ID: 
+                  <?php 
+                    echo $fetch_data['AdminID'];
+                  ?>     
                 </div>
               </div>
             </div>
             <div class="form-group">
               <div class="form-row">
-                <div class="col-md-6">
-                  Password: <?php foreach($fetch_data->result() as $row){
-                echo $row->Password;
-                } ?>     
+                <div class="col-md-6">Email: 
+                  <?php 
+                    echo $fetch_data['Email'];
+                  ?>     
                 </div>
-                <div class="col-md-6 form-group">
-                  Hospital: <?php foreach($fetch_data->result() as $row){
-                echo $row->Hospital;
-                } ?>
+                <div class="col-md-6">Phone Number: 
+                  <?php 
+                    echo $fetch_data['Phone_Number'];
+                  ?>    
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">Password: 
+                  <?php 
+                    echo $fetch_data['Password'];
+                  ?> 
+                </div>
+                <div class="col-md-6 form-group">Hospital: 
+                  <?php 
+                    echo $fetch_data['Hospital'];
+                  ?>
                 </div>
               </div>
             </div>

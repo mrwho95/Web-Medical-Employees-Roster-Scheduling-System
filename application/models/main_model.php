@@ -106,11 +106,10 @@ class main_model extends CI_Model
 		}
 	} 
 
-	function fetch_admin_data(){
-		$result = $this->db->query("select * from admin where AdminID = 'BI15110057' ");
-		// $query = $this->db->get("admin");
-		// return $query;
-		return $result;
+	function fetch_admin_data($adminID){
+    $this->db->where('AdminID', $adminID);
+		$query = $this->db->get('admin');
+		return $query->row();
 	}
 
 	function admin_insert($data){
@@ -141,13 +140,10 @@ class main_model extends CI_Model
 	}
 
 
-	public function fetch_scheduler_data(){
-		$result = $this->db->query("select * from scheduler where SchedulerID = 'BI15110057' ");
-
-		return $result;
-
-    // $query = $this->db->get("scheduler");
-    // return $query;
+	public function fetch_scheduler_data($schedulerID){
+		$this->db->where('SchedulerID', $schedulerID);
+		$query = $this->db->get('scheduler');
+		return $query->row();
   }
 
   public function fetch_calendar_data(){

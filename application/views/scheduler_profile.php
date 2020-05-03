@@ -132,47 +132,46 @@
                     <div class="form-group">
                       <div class="form-row">
                         <div class="col-md-6">Name:  
-                          <?php foreach($fetch_data->result() as $row){
-                            echo $row->Name;
-                          } ?>
+                          <?php 
+                              echo $fetch_data['Name'];
+                          ?>
                         </div>
-                        <div class="col-md-6">Scheduler ID: <?php foreach($fetch_data->result() as $row)
-                        {
-                          echo $row->SchedulerID; 
-                        }
-                        ?>     
+                        <div class="col-md-6">Scheduler ID: 
+                          <?php
+                            echo $fetch_data['SchedulerID'];
+                          ?>     
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="form-row">
                       <div class="col-md-6">
-                        Password: <?php foreach($fetch_data->result() as $row)
-                        {
-                          echo $row->Password; 
-                        } ?>     
+                        Password: 
+                          <?php
+                            echo $fetch_data['Password'];
+                          ?>     
                       </div>
                       <div class="col-md-6">
-                       Gender: <?php foreach($fetch_data->result() as $row)
-                       {
-                        echo $row->Gender; 
-                      } ?>     
+                       Gender: 
+                          <?php
+                            echo $fetch_data['Gender'];
+                          ?>     
                     </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="form-row">
                     <div class="col-md-6">
-                      Email: <?php foreach($fetch_data->result() as $row)
-                      {
-                        echo $row->Email; 
-                      } ?>     
+                      Email: 
+                          <?php
+                            echo $fetch_data['Email'];
+                          ?>     
                     </div>
                     <div class="col-md-6">
-                     Phone Number: <?php foreach($fetch_data->result() as $row)
-                     {
-                      echo $row->Phone_Number; 
-                    } ?>     
+                     Phone Number: 
+                          <?php
+                            echo $fetch_data['Phone_Number'];
+                          ?>     
                   </div>
 
                 </div>
@@ -180,16 +179,16 @@
               <div class="form-group">
                 <div class="form-row">
                   <div class="col-md-6">
-                    Department: <?php foreach($fetch_data->result() as $row)
-                    {
-                      echo $row->Department; 
-                    } ?>     
+                    Department: 
+                          <?php
+                            echo $fetch_data['Department'];
+                          ?>     
                   </div>
                   <div class="col-md-6">
-                   Hospital: <?php foreach($fetch_data->result() as $row)
-                   {
-                    echo $row->Hospital; 
-                  } ?>     
+                   Hospital: 
+                          <?php
+                            echo $fetch_data['Hospital'];
+                          ?>     
                 </div>
               </div>
             </div>

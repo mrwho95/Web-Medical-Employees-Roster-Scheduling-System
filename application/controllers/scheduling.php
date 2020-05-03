@@ -160,7 +160,7 @@ public function update_duty_table(){
         $updates = ['duty_table/'.$clinician_data.'' => $postData,];
         $database->getReference() ->update($updates);
       }
-    }elseif ($Shift_Preference == '') {
+    }elseif ($Shift_Preference == 'No status') {
      $num = rand(1,7);
      if ($num == 1) {
       $postData = ['user_key' => $clinician_data,'Name' => $user_name,'Role' =>$position,'MON' =>"AM $Monday",'TUE' => "AM $Tuesday",'WED' => "PM $Wednesday",'THU' => "PM $Thursday",'FRI' =>"- $Friday",'SAT' =>"OC $Saturday",'SUN' =>"- $Sunday",];
@@ -526,14 +526,13 @@ public function generate_duty_roster(){
  //     $String2 = substr($duty_table_reference[$key]['MON'], 2);
  // var_dump($String2);
 
-  
-
   $this->send_new_duty_roster_message_and_notification();
 
   $this->session->set_flashdata('success_msg_generate_roster', 'Generate New Duty Roster. New Duty Roster Notification is sent to Clinician!');
   return redirect('scheduling/jobplanning');	
 
 }
+
 
 public function send_new_duty_roster_message_and_notification(){
 
@@ -598,8 +597,8 @@ public function send_new_duty_roster_message_and_notification(){
             ->update($updates);
 
 
-
           }
+
 
           public function clear_duty_roster(){
 	// $this->load->model('scheduling_model');
@@ -617,6 +616,9 @@ public function send_new_duty_roster_message_and_notification(){
             $reference->remove();
             $reference2 = $database->getReference('official_duty_roster');
             $reference2->remove();
+            $reference3 = $database->getReference('calendar');
+            $reference3->remove();
+            
             $this->session->set_flashdata('success_msg_clear_content', 'Clear All Duty Roster Data.');
             return redirect('scheduling/jobplanning');
 

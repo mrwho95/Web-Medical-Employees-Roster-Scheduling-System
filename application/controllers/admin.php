@@ -12,6 +12,8 @@ class admin extends CI_Controller
 
   function __construct(){
     parent::__construct();
+    $this->load->library('session');
+
     if (!$this->session->userdata('entrance')) 
     {
       redirect('login/index');
@@ -48,9 +50,10 @@ class admin extends CI_Controller
 
 	public function admin_details(){
     $this->load->model("main_model");
-    $data['fetch_data'] = $this->main_model->fetch_admin_data();
+    $adminID = $this->session->userdata('adminID');
+    $data['fetch_data'] = $this->main_model->fetch_admin_data($adminID);
+    $data = json_decode( json_encode($data), true);
 		$this->load->view('admin_profile', $data);
-
 	}
 
  public function update_admin_form_validation()
